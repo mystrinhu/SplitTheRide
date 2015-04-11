@@ -19,7 +19,7 @@ import com.example.settings.VehiclesView;
 public class Settings extends ActionBarActivity implements OnItemClickListener{
 
 	private ListView listview;
-	private String[] settingOptions = {"Persons", "Vehicles", "Routes", "Segments"}; 
+	private String[] settingOptions = {"Segments", "Routes", "Persons", "Vehicles"};
 	
 	
 	@Override
@@ -62,24 +62,24 @@ public class Settings extends ActionBarActivity implements OnItemClickListener{
 			long id) {
 		// TODO Auto-generated method stub
 		switch(position){
-			case 0:	Intent persons = new Intent(Settings.this, PersonsView.class);
-					startActivity(persons);
-			
+            case 0: Intent segments = new Intent(Settings.this, SegmentsView.class);
+                    startActivity(segments);
+
+                    break;
+
+			case 1: Intent routes = new Intent(Settings.this, RoutesView.class);
+                    startActivity(routes);
+
 					break;
-					
-			case 1: Intent vehicles = new Intent(Settings.this, VehiclesView.class);
+
+            case 2: Intent persons = new Intent(Settings.this, PersonsView.class);
+                    startActivity(persons);
+
+                    break;
+
+			case 3: Intent vehicles = new Intent(Settings.this, VehiclesView.class);
 					startActivity(vehicles);
 			
-					break;
-					
-			case 2: Intent routes = new Intent(Settings.this, RoutesView.class);
-					startActivity(routes);
-	
-					break;
-					
-			case 3: Intent segments = new Intent(Settings.this, SegmentsView.class);
-					startActivity(segments);
-
 					break;
 		}
 	}

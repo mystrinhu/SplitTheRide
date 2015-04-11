@@ -39,7 +39,7 @@ public class PersonsView extends ActionBarActivity{
 		handler.open();
 		
 			
-		Cursor c = handler.returnData();
+		Cursor c = handler.returnAllPersonsData();
 		
 		
 		c.moveToFirst();
@@ -48,7 +48,7 @@ public class PersonsView extends ActionBarActivity{
 		
 	    while (!c.isAfterLast()) {
 	    	
-	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2));
+	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3));
 	    	personList.add(person);
 	    	c.moveToNext();
 	    }
@@ -92,6 +92,7 @@ public class PersonsView extends ActionBarActivity{
 		editPerson.putExtra("id", p.getId());
 		editPerson.putExtra("name", p.getName());
 		editPerson.putExtra("short_name", p.getShort());
+        editPerson.putExtra("usual_route", p.getUsual_route());
 		
 		startActivity(editPerson);
 		finish();

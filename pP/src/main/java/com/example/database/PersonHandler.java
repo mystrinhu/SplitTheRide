@@ -31,21 +31,23 @@ public class PersonHandler {
 		dbhelper.close();
 	}
 	
-	public long insertPerson(String name, String short_name){
+	public long insertPerson(String name, String short_name, int route){
 		
 		ContentValues content = new ContentValues();
 		content.put(DataBaseHelper.PERSON_NAME,name);
 		content.put(DataBaseHelper.PERSON_SNAME, short_name);
+        content.put(DataBaseHelper.PERSON_USUAL_ROUTE, route);
 		
 		return db.insertOrThrow(DataBaseHelper.PERSON_TABLE_NAME, null, content);
 		
 	}
 	
-	public boolean editPerson(int id, String name, String short_name){
+	public boolean editPerson(int id, String name, String short_name, int route){
 		
 		ContentValues content = new ContentValues();
 		content.put(DataBaseHelper.PERSON_NAME, name);
 		content.put(DataBaseHelper.PERSON_SNAME, short_name);
+        content.put(DataBaseHelper.PERSON_USUAL_ROUTE, route);
 		
 		
 		return db.update(DataBaseHelper.PERSON_TABLE_NAME, content, DataBaseHelper.PERSON_ID+"=?", new String[]{""+id})>0;
@@ -117,9 +119,9 @@ public class PersonHandler {
 						null, null, null, null, null);
 	}
 	
-	public Cursor returnData(){
+	public Cursor returnAllPersonsData(){
 		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME, new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME, DataBaseHelper.PERSON_SNAME}, null, null, null, null, null);
+		return db.query(DataBaseHelper.PERSON_TABLE_NAME, new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME, DataBaseHelper.PERSON_SNAME, DataBaseHelper.PERSON_USUAL_ROUTE}, null, null, null, null, null);
 	}
 	
 	

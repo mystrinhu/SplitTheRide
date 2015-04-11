@@ -87,7 +87,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		
 	    while (!c.isAfterLast()) {
 	    	
-	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2));
+	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3));
 	    	drivers.add(person);
 	    	
 	    	c.moveToNext();

@@ -53,7 +53,7 @@ public class AddTransaction extends ActionBarActivity implements View.OnClickLis
         p_handler = new PersonHandler(this);
 
         p_handler.open();
-        Cursor person_cursor = p_handler.returnData();
+        Cursor person_cursor = p_handler.returnAllPersonsData();
 
         person_cursor.moveToFirst();
 

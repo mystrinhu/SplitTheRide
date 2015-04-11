@@ -8,18 +8,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper{
 
 	private static final String DATA_BASE_NAME = "database";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
+
+    // TABLE ROUTE
+
+    public static final String ROUTE_ID = "_id";
+    public static final String ROUTE_NAME = "route_name";
+    public static final String ROUTE_TABLE_NAME = "Routes";
+
+    public static final String CREATE_TABLE_ROUTE = "create table "+ ROUTE_TABLE_NAME +
+                                                    " ("+ ROUTE_ID + " integer primary key autoincrement, "+
+                                                    ROUTE_NAME + " text not null);";
 	
 	// TABLE PERSON
 	public static final String PERSON_ID = "_id";
 	public static final String PERSON_NAME = "name";
 	public static final String PERSON_SNAME = "short_name";
+    public static final String PERSON_USUAL_ROUTE = "usual_route";
 	public static final String PERSON_TABLE_NAME = "Persons";
 	
 	public static final String CREATE_TABLE_PERSON = "create table "+ PERSON_TABLE_NAME +
 													" ("+PERSON_ID+" integer primary key autoincrement, "+
 													PERSON_NAME+" text not null, "+
-													PERSON_SNAME+" text not null);";
+													PERSON_SNAME+" text not null," +
+                                                    PERSON_USUAL_ROUTE+" int," +
+                                                    "FOREIGN KEY ("+PERSON_USUAL_ROUTE +") REFERENCES "+ ROUTE_TABLE_NAME +" ("+ROUTE_ID+") );";
 	
 	// TABLE VEHICLE
 	
@@ -35,16 +48,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 													VEHICLE_CONSUMPTION+" double not null, "+
 													VEHICLE_PERSON_ID+" integer, "+
 													"FOREIGN KEY("+ VEHICLE_PERSON_ID +") REFERENCES "+ PERSON_TABLE_NAME +" ("+PERSON_ID+") );";
-	
-	// TABLE ROUTE
-	
-	public static final String ROUTE_ID = "_id";
-	public static final String ROUTE_NAME = "route_name";
-	public static final String ROUTE_TABLE_NAME = "Routes";
-	
-	public static final String CREATE_TABLE_ROUTE = "create table "+ ROUTE_TABLE_NAME +
-													" ("+ ROUTE_ID + " integer primary key autoincrement, "+
-													ROUTE_NAME + " text not null);";
 	
 	
 	// TABLE TRIP
@@ -143,6 +146,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			  									 "FOREIGN KEY(" + CR_SEGMENT_ID + ") REFERENCES "+ SEGMENT_TABLE_NAME + " ("+SEGMENT_ID+") ); ";
 
 
+
     // TRIGGERS
 
     public static final String CREATE_TRIGGER_DEBT = "CREATE TRIGGER aft_insert_debt "+
@@ -175,9 +179,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		try{
-			db.execSQL(CREATE_TABLE_PERSON);
+            db.execSQL(CREATE_TABLE_ROUTE);
+            db.execSQL(CREATE_TABLE_PERSON);
 			db.execSQL(CREATE_TABLE_VEHICLE);
-			db.execSQL(CREATE_TABLE_ROUTE);
 			db.execSQL(CREATE_TABLE_SEGMENT);
 			db.execSQL(CREATE_TABLE_TRIP);
 			db.execSQL(CREATE_TABLE_ACCOUNT);
@@ -204,9 +208,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		db.execSQL("DROP TABLE IF EXISTS "+ ACCOUNT_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+ TRIP_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+ SEGMENT_TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS "+ ROUTE_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+ VEHICLE_TABLE_NAME);
 		db.execSQL("DROP TABLE IF EXISTS "+ PERSON_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ ROUTE_TABLE_NAME);
 		
 		onCreate(db);
 		

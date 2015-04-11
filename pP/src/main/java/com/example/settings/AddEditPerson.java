@@ -1,5 +1,6 @@
 package com.example.settings;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.AlertDialog;
@@ -9,22 +10,32 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.example.custom.RouteListAdapter;
 import com.example.database.AccountHandler;
 import com.example.database.PersonHandler;
+import com.example.database.RouteHandler;
+import com.example.entities.Person;
+import com.example.entities.Route;
 import com.example.pp.R;
 
 public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 
 	private Button ok, cancel;
 	private EditText name, short_name;
+    private Spinner usual_route;
 	private PersonHandler handler;
 	private int person_id;
 	private Intent intent, editPerson;
+    private ArrayAdapter<Route> routeAdapter;
+    private ArrayList<Route> routeList;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -36,13 +47,20 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		
 		name = (EditText) findViewById(R.id.name);
 		short_name = (EditText) findViewById(R.id.short_name);
-		
+		usual_route = (Spinner) findViewById(R.id.spinner_usual_route);
+
 		ok.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		
 		editPerson = getIntent();
 		ActionBar ab = getSupportActionBar();
-		
+
+        routeList = getRoutes();
+
+        routeList = getRoutes();
+        routeAdapter = new ArrayAdapter<Route>(this, android.R.layout.simple_list_item_1, routeList);
+        usual_route.setAdapter(routeAdapter);
+
 		
 		if(editPerson.getStringExtra("name") != null || editPerson.getStringExtra("short_name") != null){
 			
@@ -51,7 +69,9 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 			
 			name.setText(editPerson.getStringExtra("name"));
 			short_name.setText(editPerson.getStringExtra("short_name"));
+
 			person_id = editPerson.getIntExtra("id", 0);
+
 		}else{
 		
 			ab.setTitle("Add Person");
@@ -69,6 +89,9 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		switch(v.getId()){
 			case R.id.ok:	String getName = name.getText().toString();
 							String getSName = short_name.getText().toString();
+                            Log.d("route", "" + usual_route.getSelectedItem());
+
+                            // Ando por aqui
 							
 							handler = new PersonHandler(this);
 							handler.open();
@@ -88,9 +111,9 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 								
 									if(ok.getText() == "Add"){
 										
-										Cursor persons = handler.returnData();
+										Cursor persons = handler.returnAllPersonsData();
 										
-										handler.insertPerson(getName, getSName);
+										//handler.insertPerson(getName, getSName, Integer.parseInt(getUsualRoute));
 										
 										Cursor id = handler.getIDfromShortName(getSName);
 										
@@ -103,13 +126,13 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 									
 									}else{
 									
-										if(handler.editPerson(person_id, getName, getSName)){
+										/*if(handler.editPerson(person_id, getName, getSName, Integer.parseInt(getUsualRoute))){
 											showMessage("Person", getName + " edited successfully");
 										
 											name.setText("");
 											short_name.setText("");
 										}else 
-											showMessage("Error", "It was not possible to edit "+ getName);
+											showMessage("Error", "It was not possible to edit "+ getName);*/
 									}
 								}
 							}
@@ -184,5 +207,30 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		dialog.show();
 	}
 
+
+    private ArrayList<Route> getRoutes(){
+
+        ArrayList<Route> routes = new ArrayList<Route>();
+
+        RouteHandler routeHandler = new RouteHandler(this);
+        routeHandler.open();
+
+        Cursor c = routeHandler.returnRoutes();
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+
+            Route route = new Route(c.getInt(0), c.getString(1));
+            routes.add(route);
+
+            c.moveToNext();
+        }
+
+        routeHandler.close();
+
+        return routes;
+
+    }
 	
 }

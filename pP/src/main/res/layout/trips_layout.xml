@@ -24,28 +24,10 @@
         		android:cursorVisible="false" 
         		android:focusable="false" 
         		android:focusableInTouchMode="false"
-        		android:ems="10" >
+        		android:ems="10"
+            android:layout_column="2">
         		
     	</EditText>
-        
-    </TableRow>
-
-    <TableRow 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-		
-        <TextView android:id="@+id/textView2"
-        		android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-                android:layout_weight="1"
-        		android:text="Route"
-        		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    	<Spinner android:id="@+id/spinner1"
-        		android:layout_width="match_parent"
-        		android:layout_height="wrap_content"
-                android:layout_weight="1"/>
         
     </TableRow>
         
@@ -64,7 +46,8 @@
     	<Spinner android:id="@+id/spinner2"
         		android:layout_width="match_parent"
         		android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+            android:layout_column="2" />
         
     </TableRow>
     
@@ -85,12 +68,21 @@
         		android:layout_height="wrap_content"
                 android:layout_weight="1"
         		android:text="cenas e coiso e tal"
-        		android:textAppearance="?android:attr/textAppearanceMedium" />
+        		android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_column="2" />
 	
         
     </TableRow>
 
-    <LinearLayout 
+
+    <ListView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/listView"
+              android:layout_marginTop="10dp"
+              android:layout_column="1" />
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
