@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\PP\caldroid\unspecified\libs\date4j.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="18889a91ddc87a008bce37fb516047f8aa43331a">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\date4j-69e2525896d81f4d3683a8e02f49776be47c884f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-97358a65232c9fad734964266bf7242f43eb26a7.jar" />
+    </item>
+    <item
+        jar="C:\Program Files (x86)\Android\android-sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\support-v4-19.1.0-c30e376a8a37b42530721aa3276156097e39d8df.jar" />
+    </item>
+    <item
+        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\PP\caldroid\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ddd7d92c8f7d6c075ecacf4ca213c55c4ef3c905">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-11a06833a982e89b8c310d6dccce7f446841020f.jar" />
+    </item>
+
+</items>

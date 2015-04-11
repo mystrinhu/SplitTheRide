@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Accounts"
+            android:label="@string/title_activity_accounts"
+            android:parentActivityName=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Transactions"
+            android:label="@string/title_activity_transactions"
+            android:parentActivityName=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CalendarView"
+            android:label="@string/title_activity_calendar"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.settings.PersonsView"
+            android:label="@string/title_activity_persons"
+            android:parentActivityName=".Settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Settings" />
+        </activity>
+        <activity
+            android:name="com.example.settings.AddEditPerson"
+            android:label="@string/title_activity_persons"
+            android:parentActivityName="com.example.settings.PersonsView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.settings.PersonsView" />
+        </activity>
+        <activity
+            android:name="com.example.settings.VehiclesView"
+            android:label="@string/title_activity_vehicles"
+            android:parentActivityName=".Settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Settings" />
+        </activity>
+        <activity
+            android:name="com.example.settings.AddEditVehicle"
+            android:label="@string/title_activity_vehicles"
+            android:parentActivityName="com.example.settings.VehiclesView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.settings.VehiclesView" />
+        </activity>
+        <activity
+            android:name="com.example.settings.RoutesView"
+            android:label="@string/title_activity_routes"
+            android:parentActivityName=".Settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Settings" />
+        </activity>
+        <activity
+            android:name="com.example.settings.AddEditRoute"
+            android:label="@string/title_activity_routes"
+            android:parentActivityName="com.example.settings.RoutesView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.settings.RoutesView" />
+        </activity>
+        <activity
+            android:name="com.example.settings.SegmentsView"
+            android:label="@string/title_activity_segments"
+            android:parentActivityName=".Settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Settings" />
+        </activity>
+        <activity
+            android:name="com.example.settings.AddEditSegment"
+            android:label="@string/title_activity_segments"
+            android:parentActivityName="com.example.settings.SegmentsView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.settings.SegmentsView" />
+        </activity>
+        <activity
+            android:name=".Trips"
+            android:label="@string/title_activity_trips"
+            android:parentActivityName=".CalendarView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.CalendarView" />
+        </activity>
+        <activity
+            android:name=".AccountValues"
+            android:label="@string/title_activity_accounts"
+            android:parentActivityName=".Accounts" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Accounts" />
+        </activity>
+        <activity
+            android:name="com.example.settings.AddTransaction"
+            android:label="@string/title_activity_add_transaction"
+            android:parentActivityName=".Transactions" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pp.Transactions" />
+        </activity>
+    </application>
+
+</manifest>

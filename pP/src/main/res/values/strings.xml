@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PP</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_accounts">Accounts</string>
+    <string name="title_activity_transactions">Transactions</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_calendar">Calendar</string>
+    <string name="title_activity_persons">Persons</string>
+    <string name="title_activity_vehicles">Vehicles</string>
+    <string name="title_activity_routes">Routes</string>
+    <string name="title_activity_segments">Segments</string>
+    <string name="title_activity_trips">Trips</string>
+    <string name="title_activity_add_transaction">Add Payment</string>
+	
+</resources>

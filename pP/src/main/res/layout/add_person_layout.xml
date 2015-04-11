@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.settings.PersonsView" >
+    
+    <TableLayout android:layout_width="match_parent"
+    			android:layout_height="wrap_content"
+    			android:layout_marginTop="10dp"
+    			android:shrinkColumns="*"
+    			android:stretchColumns="*" >
+    			
+        <TableRow android:layout_height="wrap_content"
+        		android:layout_width="wrap_content"
+        		android:paddingTop="10dp">
+    	
+	       <TextView android:id="@+id/textView1"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:layout_gravity="center_vertical"
+        			android:text="Name"
+        			android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	    	<EditText android:id="@+id/name"
+	        		android:layout_width="wrap_content"
+	        		android:layout_height="wrap_content"
+	        		android:ems="10"
+	        		android:hint="Ex.: joao" />
+    	</TableRow>
+    	
+        <TableRow android:layout_height="wrap_content"
+        		android:layout_width="wrap_content"
+        		android:paddingTop="10dp">
+	    	
+            <TextView android:id="@+id/textView2"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:layout_gravity="center_vertical"
+        			android:text="Initials"
+        			android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    		<EditText android:id="@+id/short_name"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:ems="10"
+        			android:hint="Ex.: JMF" />
+	    	
+        </TableRow>
+        
+    </TableLayout>
+
+    
+    <LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="20dp"
+	    android:orientation="horizontal" >
+    	
+	    <Button android:id="@+id/ok"
+	    		android:layout_width="120dp"
+	    		android:layout_height="wrap_content"
+	    		android:text="OK" />
+
+   		<Button android:id="@+id/cancel"
+   	    		android:layout_width="120dp"
+   	    		android:layout_height="wrap_content"
+   	    		android:text="Cancel" />
+	    
+	</LinearLayout>
+
+   
+
+</LinearLayout>
