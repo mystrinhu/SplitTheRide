@@ -1,4 +1,4 @@
-package com.example.pp;
+package com.example.trips;
 
 import java.util.ArrayList;
 
@@ -18,6 +18,7 @@ import com.example.database.PersonHandler;
 import com.example.database.RouteHandler;
 import com.example.entities.Person;
 import com.example.entities.Route;
+import com.example.pp.R;
 
 public class Trips extends ActionBarActivity implements OnClickListener{
 
@@ -67,7 +68,9 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
     public void addNewPassengerHandler(View v){
 
-        Toast.makeText(getApplicationContext(), "Quero adicionar um novo passageiro", Toast.LENGTH_LONG).show();
+       // Intent intent = new Intent(Trips.this, AddNewPassenger.class);
+
+       // startActivity(intent);
     }
 	
 	

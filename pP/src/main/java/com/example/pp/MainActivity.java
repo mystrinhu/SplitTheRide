@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.trips.CalendarView;
+
 public class MainActivity extends ActionBarActivity implements OnClickListener{
 
 	private Button button1, button2, button3, button4;

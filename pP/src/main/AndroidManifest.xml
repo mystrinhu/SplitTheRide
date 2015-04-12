@@ -72,7 +72,7 @@
                 android:value="com.example.pp.MainActivity" />
         </activity>
         <activity
-            android:name=".CalendarView"
+            android:name="com.example.trips.CalendarView"
             android:label="@string/title_activity_calendar"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -144,12 +144,12 @@
                 android:value="com.example.settings.SegmentsView" />
         </activity>
         <activity
-            android:name=".Trips"
+            android:name="com.example.trips.Trips"
             android:label="@string/title_activity_trips"
-            android:parentActivityName=".CalendarView" >
+            android:parentActivityName="com.example.trips.CalendarView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.CalendarView" />
+                android:value="com.example.trips.CalendarView" />
         </activity>
         <activity
             android:name=".AccountValues"
@@ -166,6 +166,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pp.Transactions" />
+        </activity>
+        <activity
+            android:name="com.example.trips.AddNewPassenger"
+            android:label="@string/title_activity_add_new_passenger"
+            android:parentActivityName="com.example.trips.Trips" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.trips.Trips" />
         </activity>
     </application>
 

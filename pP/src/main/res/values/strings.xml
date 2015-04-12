@@ -14,5 +14,6 @@
     <string name="title_activity_segments">Segments</string>
     <string name="title_activity_trips">Trips</string>
     <string name="title_activity_add_transaction">Add Payment</string>
+    <string name="title_activity_add_new_passenger">AddNewPassenger</string>
 	
 </resources>

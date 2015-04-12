@@ -1,4 +1,4 @@
-package com.example.pp;
+package com.example.trips;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,9 +14,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.database.TripHandler;
+import com.example.pp.R;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
