@@ -15,6 +15,13 @@ public class Person {
         this.usual_route = usual_route;
 		
 	}
+
+    public Person(int id, String name, String short_name){
+
+        this.id = id;
+        this.name = name;
+        this.short_name = short_name;
+    }
 	
 	
 	public int getId(){

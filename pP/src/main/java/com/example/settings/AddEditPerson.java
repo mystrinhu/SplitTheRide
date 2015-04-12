@@ -57,7 +57,6 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 
         routeList = getRoutes();
 
-        routeList = getRoutes();
         routeAdapter = new ArrayAdapter<Route>(this, android.R.layout.simple_list_item_1, routeList);
         usual_route.setAdapter(routeAdapter);
 
@@ -70,6 +69,15 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 			name.setText(editPerson.getStringExtra("name"));
 			short_name.setText(editPerson.getStringExtra("short_name"));
 
+            RouteHandler routeHandler = new RouteHandler(this);
+
+            routeHandler.open();
+
+            Route route = routeHandler.getRoute(editPerson.getIntExtra("usual_route", 0));
+
+            routeHandler.close();
+
+            usual_route.setSelection(indexOfRoute(route));
 			person_id = editPerson.getIntExtra("id", 0);
 
 		}else{
@@ -89,7 +97,8 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		switch(v.getId()){
 			case R.id.ok:	String getName = name.getText().toString();
 							String getSName = short_name.getText().toString();
-                            Log.d("route", "" + usual_route.getSelectedItem());
+                            Route selected_route = (Route) usual_route.getSelectedItem();
+                           // Log.d("route", "" + selected_route.getID());
 
                             // Ando por aqui
 							
@@ -113,7 +122,7 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 										
 										Cursor persons = handler.returnAllPersonsData();
 										
-										//handler.insertPerson(getName, getSName, Integer.parseInt(getUsualRoute));
+										handler.insertPerson(getName, getSName, selected_route.getID());
 										
 										Cursor id = handler.getIDfromShortName(getSName);
 										
@@ -126,13 +135,13 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 									
 									}else{
 									
-										/*if(handler.editPerson(person_id, getName, getSName, Integer.parseInt(getUsualRoute))){
+										if(handler.editPerson(person_id, getName, getSName, selected_route.getID())){
 											showMessage("Person", getName + " edited successfully");
 										
 											name.setText("");
 											short_name.setText("");
 										}else 
-											showMessage("Error", "It was not possible to edit "+ getName);*/
+											showMessage("Error", "It was not possible to edit "+ getName);
 									}
 								}
 							}
@@ -207,6 +216,19 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		dialog.show();
 	}
 
+    private int indexOfRoute(Route route){
+
+        int found = -1;
+
+        for(int i=0; i<routeList.size(); i++ ){
+
+            Route r = routeList.get(i);
+            if(r.getID()==route.getID())
+                found=i;
+        }
+
+        return found;
+    }
 
     private ArrayList<Route> getRoutes(){
 

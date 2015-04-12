@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.entities.Route;
+
 public class RouteHandler {
 	
 	DataBaseHelper dbhelper;
@@ -59,6 +61,28 @@ public class RouteHandler {
 		return cursor.getCount()>0;
 				
 	}
+
+    public Route getRoute(int id){
+
+        Route r = null;
+
+        Cursor c = db.query(DataBaseHelper.ROUTE_TABLE_NAME,
+                            new String[]{DataBaseHelper.ROUTE_ID, DataBaseHelper.ROUTE_NAME},
+                            DataBaseHelper.ROUTE_ID + " =?",
+                            new String[]{""+id},
+                            null, null, null);
+
+        c.moveToFirst();
+
+        while(!c.isAfterLast()){
+            r = new Route(c.getInt(0), c.getString(1));
+
+            c.moveToNext();
+        }
+
+        return r;
+
+    }
 	
 	public Cursor getRouteID (String name){
 		

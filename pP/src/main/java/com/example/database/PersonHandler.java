@@ -73,7 +73,7 @@ public class PersonHandler {
 	
 	public Cursor getAllDrivers(){
 		
-		return db.rawQuery("SELECT p."+DataBaseHelper.PERSON_ID+", p."+DataBaseHelper.PERSON_NAME+", p."+DataBaseHelper.PERSON_SNAME+
+		return db.rawQuery("SELECT p."+DataBaseHelper.PERSON_ID+", p."+DataBaseHelper.PERSON_NAME+", p."+DataBaseHelper.PERSON_SNAME+", p."+DataBaseHelper.PERSON_USUAL_ROUTE+
 						   " FROM "+DataBaseHelper.PERSON_TABLE_NAME+" p, "+DataBaseHelper.VEHICLE_TABLE_NAME+" v "+
 						   "WHERE p."+DataBaseHelper.PERSON_ID+" = v."+DataBaseHelper.VEHICLE_PERSON_ID, null);
 	}

@@ -825,22 +825,26 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int calendar_next_arrow=0x7f020057;
-        public static final int calendar_prev_arrow=0x7f020058;
-        public static final int cell_bg=0x7f020059;
-        public static final int disable_cell=0x7f02005a;
-        public static final int ic_action_discard=0x7f02005b;
-        public static final int ic_action_edit=0x7f02005c;
-        public static final int ic_action_new=0x7f02005d;
-        public static final int ic_launcher=0x7f02005e;
-        public static final int left_arrow=0x7f02005f;
-        public static final int red_border=0x7f020060;
-        public static final int red_border_gray_bg=0x7f020061;
-        public static final int right_arrow=0x7f020062;
+        public static final int app_icon=0x7f020057;
+        public static final int calendar_next_arrow=0x7f020058;
+        public static final int calendar_prev_arrow=0x7f020059;
+        public static final int cell_bg=0x7f02005a;
+        public static final int disable_cell=0x7f02005b;
+        public static final int ic_action_add_person=0x7f02005c;
+        public static final int ic_action_discard=0x7f02005d;
+        public static final int ic_action_edit=0x7f02005e;
+        public static final int ic_action_new=0x7f02005f;
+        public static final int ic_action_settings=0x7f020060;
+        public static final int ic_launcher=0x7f020061;
+        public static final int left_arrow=0x7f020062;
+        public static final int red_border=0x7f020063;
+        public static final int red_border_gray_bg=0x7f020064;
+        public static final int right_arrow=0x7f020065;
     }
     public static final class id {
         public static final int ScrollView01=0x7f080058;
         public static final int accounts_list=0x7f08003d;
+        public static final int action_add_passenger=0x7f080077;
         public static final int action_addview=0x7f08007d;
         public static final int action_bar=0x7f08001c;
         public static final int action_bar_activity_content=0x7f080000;
@@ -951,7 +955,6 @@ containing a value of this type.
         public static final int textView2=0x7f080051;
         public static final int textView3=0x7f080053;
         public static final int textView4=0x7f080076;
-        public static final int textView5=0x7f080077;
         public static final int textview=0x7f080063;
         public static final int title=0x7f08002b;
         public static final int to=0x7f08004e;

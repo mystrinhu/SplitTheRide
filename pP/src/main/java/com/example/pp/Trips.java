@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.database.PersonHandler;
 import com.example.database.RouteHandler;
@@ -25,9 +26,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 	private Button save, cancel;
 	//private PersonHandler personHandler;
 	private ArrayList<Person> personList;
-	private ArrayList<Route> routeList;
 	private ArrayAdapter<Person> driverAdapter;
-	private ArrayAdapter<Route> routeAdapter;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -35,17 +34,12 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		setContentView(R.layout.trips_layout);
 		
 		date = (EditText) findViewById(R.id.date);
-		routeSpinner = (Spinner) findViewById(R.id.spinner1);
 		driverSpinner = (Spinner) findViewById(R.id.spinner2);
 		save = (Button) findViewById(R.id.saveTrip);
 		cancel = (Button) findViewById(R.id.cancelTrip);
 		
 		Bundle bundle = getIntent().getExtras();
 		date.setText(bundle.getString("date"));
-		
-		routeList = getRoutes();
-		routeAdapter = new ArrayAdapter<Route>(this, android.R.layout.simple_list_item_1, routeList);
-		routeSpinner.setAdapter(routeAdapter);
 				
 		personList = getDrivers();
 		
@@ -70,6 +64,11 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		}
 		
 	}
+
+    public void addNewPassengerHandler(View v){
+
+        Toast.makeText(getApplicationContext(), "Quero adicionar um novo passageiro", Toast.LENGTH_LONG).show();
+    }
 	
 	
 	private ArrayList<Person> getDrivers(){

@@ -63,15 +63,14 @@
         		android:text="Passengers"
         		android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    	<TextView android:id="@+id/textView5"
-        		android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"
-                android:layout_weight="1"
-        		android:text="cenas e coiso e tal"
-        		android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_column="2" />
-	
-        
+        <ImageButton
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/action_add_passenger"
+             android:onClick="addNewPassengerHandler"
+             android:src="@drawable/ic_action_add_person" />
+
+
     </TableRow>
 
 
