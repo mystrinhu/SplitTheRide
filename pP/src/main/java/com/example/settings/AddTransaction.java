@@ -12,11 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.database.AccountHandler;
 import com.example.database.PersonHandler;
 import com.example.database.TransactionHandler;
 import com.example.pp.R;
-import com.example.pp.Transactions;
+import com.example.splittheride.Transactions;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.pp;
+package com.example.splittheride;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.pp.R;
 import com.example.settings.PersonsView;
 import com.example.settings.RoutesView;
 import com.example.settings.SegmentsView;

@@ -1,6 +1,7 @@
-package com.example.pp;
+package com.example.splittheride;
 
 import com.example.database.AccountHandler;
+import com.example.pp.R;
 
 import android.database.Cursor;
 import android.graphics.Color;

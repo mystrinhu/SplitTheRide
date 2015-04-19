@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pp"
+    package="com.example.splittheride"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -21,7 +21,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.splittheride.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Accounts"
+            android:name="com.example.splittheride.Accounts"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.example.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,12 +41,12 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.MainActivity" />
+                android:value="com.example.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name=".Transactions"
+            android:name="com.example.splittheride.Transactions"
             android:label="@string/title_activity_transactions"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.example.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,12 +55,12 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.MainActivity" />
+                android:value="com.example.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name="com.example.splittheride.Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.example.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,23 +69,23 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.MainActivity" />
+                android:value="com.example.splittheride.MainActivity" />
         </activity>
         <activity
             android:name="com.example.trips.CalendarView"
             android:label="@string/title_activity_calendar"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.example.splittheride.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.MainActivity" />
+                android:value="com.example.splittheride.MainActivity" />
         </activity>
         <activity
             android:name="com.example.settings.PersonsView"
             android:label="@string/title_activity_persons"
-            android:parentActivityName=".Settings" >
+            android:parentActivityName="com.example.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Settings" />
+                android:value="com.example.splittheride.Settings" />
         </activity>
         <activity
             android:name="com.example.settings.AddEditPerson"
@@ -98,10 +98,10 @@
         <activity
             android:name="com.example.settings.VehiclesView"
             android:label="@string/title_activity_vehicles"
-            android:parentActivityName=".Settings" >
+            android:parentActivityName="com.example.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Settings" />
+                android:value="com.example.splittheride.Settings" />
         </activity>
         <activity
             android:name="com.example.settings.AddEditVehicle"
@@ -114,10 +114,10 @@
         <activity
             android:name="com.example.settings.RoutesView"
             android:label="@string/title_activity_routes"
-            android:parentActivityName=".Settings" >
+            android:parentActivityName="com.example.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Settings" />
+                android:value="com.example.splittheride.Settings" />
         </activity>
         <activity
             android:name="com.example.settings.AddEditRoute"
@@ -130,10 +130,10 @@
         <activity
             android:name="com.example.settings.SegmentsView"
             android:label="@string/title_activity_segments"
-            android:parentActivityName=".Settings" >
+            android:parentActivityName="com.example.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Settings" />
+                android:value="com.example.splittheride.Settings" />
         </activity>
         <activity
             android:name="com.example.settings.AddEditSegment"
@@ -152,20 +152,20 @@
                 android:value="com.example.trips.CalendarView" />
         </activity>
         <activity
-            android:name=".AccountValues"
+            android:name="com.example.splittheride.AccountValues"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName=".Accounts" >
+            android:parentActivityName="com.example.splittheride.Accounts" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Accounts" />
+                android:value="com.example.splittheride.Accounts" />
         </activity>
         <activity
             android:name="com.example.settings.AddTransaction"
             android:label="@string/title_activity_add_transaction"
-            android:parentActivityName=".Transactions" >
+            android:parentActivityName="com.example.splittheride.Transactions" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pp.Transactions" />
+                android:value="com.example.splittheride.Transactions" />
         </activity>
         <activity
             android:name="com.example.trips.AddNewPassenger"

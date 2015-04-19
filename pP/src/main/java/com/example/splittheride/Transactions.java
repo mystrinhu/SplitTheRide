@@ -1,4 +1,4 @@
-package com.example.pp;
+package com.example.splittheride;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.database.PersonHandler;
 import com.example.database.TransactionHandler;
+import com.example.pp.R;
 import com.example.settings.AddTransaction;
 
 public class Transactions extends ActionBarActivity {

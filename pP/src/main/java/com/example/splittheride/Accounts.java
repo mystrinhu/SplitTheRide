@@ -1,4 +1,4 @@
-package com.example.pp;
+package com.example.splittheride;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.example.database.AccountHandler;
 import com.example.entities.Person;
+import com.example.pp.R;
 
 public class Accounts extends ActionBarActivity implements OnItemClickListener {
 	
