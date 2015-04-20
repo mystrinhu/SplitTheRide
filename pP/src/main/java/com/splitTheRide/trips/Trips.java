@@ -1,6 +1,7 @@
 package com.splitTheRide.trips;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,9 +12,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import com.splitTheRide.database.PersonHandler;
@@ -25,11 +29,16 @@ import com.splitTheRide.splittheride.R;
 public class Trips extends ActionBarActivity implements OnClickListener{
 
 	private EditText date;
-	private Spinner driverSpinner, routeSpinner;
+	private Spinner driverSpinner;
+    private ListView passengerListView;
 	private Button save, cancel;
-	//private PersonHandler personHandler;
-	private ArrayList<Person> personList;
+    private ArrayList<HashMap<String,String>> list;
+	private ArrayList<Person> personList = new ArrayList<Person>(), driversList;
+    private Cursor personCursor;
+    private CharSequence[] passengers;
 	private ArrayAdapter<Person> driverAdapter;
+    private SimpleAdapter simpleAdapter;
+    private ArrayList<Integer> selectedPassengers;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -40,15 +49,47 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		driverSpinner = (Spinner) findViewById(R.id.spinner2);
 		save = (Button) findViewById(R.id.saveTrip);
 		cancel = (Button) findViewById(R.id.cancelTrip);
+        passengerListView = (ListView) findViewById(R.id.passengerList);
 		
 		Bundle bundle = getIntent().getExtras();
 		date.setText(bundle.getString("date"));
+
+        // Gets all te necessary information from the Person table
+        PersonHandler personHandler = new PersonHandler(this);
+        personHandler.open();
+
+        personCursor = personHandler.returnAllPersonsData();
+
+        personCursor.moveToFirst();
+
+        while(!personCursor.isAfterLast()){
+            Person person = new Person(personCursor.getInt(0), personCursor.getString(1), personCursor.getString(2), personCursor.getInt(3));
+            personList.add(person);
+
+            personCursor.moveToNext();
+        }
+        personHandler.close();
+
 				
-		personList = getDrivers();
+		driversList = getDrivers();
 		
-	    driverAdapter = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, personList);
+	    driverAdapter = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, driversList);
 		driverSpinner.setAdapter(driverAdapter);
-		
+
+        driverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                removeDriverfromPassengers(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        list = new ArrayList<HashMap<String,String>>();
+
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		
@@ -71,80 +112,160 @@ public class Trips extends ActionBarActivity implements OnClickListener{
     public void addNewPassengerHandler(View v){
 
         String driver = driverSpinner.getSelectedItem().toString();
+        ArrayList<Person> persons = new ArrayList<Person>();
 
-        Log.d("cenas", driverSpinner.getSelectedItem().toString());
+        selectedPassengers = new ArrayList<Integer>();
 
-        PersonHandler personHandler = new PersonHandler(this);
+        // Lista de passageiros (o tamanho depende do condutor e dos passageiros já escolhidos)
+        int numberOfSelected = list.size();
+        passengers = new CharSequence[personCursor.getCount()-1-numberOfSelected];
 
-        personHandler.open();
-
-        Cursor c = personHandler.returnAllPersonsData();
-
-        CharSequence[] passengers = new CharSequence[c.getCount()];
-
-        c.moveToFirst();
+        personCursor.moveToFirst();
         int i = 0;
 
-        while (!c.isAfterLast()){
+        while (!personCursor.isAfterLast()){
 
-            Log.d("ceas", ""+c.getString(1).equalsIgnoreCase(driver));
+            if(!personCursor.getString(1).equalsIgnoreCase(driver) &&
+                    !isAlreadySelected(personCursor.getString(1), list)) {
+                passengers[i] = personCursor.getString(1);
+                i++;
+            }
 
-            passengers[i] = c.getString(1);
-            i++;
-
-            c.moveToNext();
+            personCursor.moveToNext();
         }
-
-
-        personHandler.close();
-
-
-
-        final ArrayList<Integer> selectedPassengers = new ArrayList();  // Where we track the selected items
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Add passengers")
-                // Specify the list array, the items to be selected by default (null for none),
-                // and the listener through which to receive callbacks when items are selected
-                .setMultiChoiceItems(passengers, null,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked) {
-                                if (isChecked) {
-                                    // If the user checked the item, add it to the selected items
-                                    selectedPassengers.add(which);
-                                } else if (selectedPassengers.contains(which)) {
-                                    // Else, if the item is already in the array, remove it
-                                    selectedPassengers.remove(Integer.valueOf(which));
+        if(i!=0) {
+
+            builder.setTitle("Add passengers")
+                    // Specify the list array, the items to be selected by default (null for none),
+                    // and the listener through which to receive callbacks when items are selected
+                    .setMultiChoiceItems(passengers, null,
+                            new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which,
+                                                    boolean isChecked) {
+                                    if (isChecked) {
+                                        // If the user checked the item, add it to the selected items
+                                        selectedPassengers.add(which);
+                                    } else if (selectedPassengers.contains(which)) {
+                                        // Else, if the item is already in the array, remove it
+                                        selectedPassengers.remove(Integer.valueOf(which));
+                                    }
                                 }
-                            }
-                        })
-                        // Set the action buttons
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK, so save the mSelectedItems results somewhere
-                        // or return them to the component that opened the dialog
+                            })
+                            // Set the action buttons
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK, so save the mSelectedItems results somewhere
+                            // or return them to the component that opened the dialog
+                            setPassengers(selectedPassengers, personList);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
 
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
+                        }
+                    });
+        }else{
+            builder.setTitle("Add Passengers")
+                   .setMessage("All the persons have a role in this trip.")
+                   .setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // User clicked OK, so save the mSelectedItems results somewhere
+                           // or return them to the component that opened the dialog
+                           setPassengers(selectedPassengers, personList);
+                       }
+                   });
+        }
 
         builder.create();
 
         builder.show();
-
-
     }
-	
-	
+
+
+    // Adiciona elementos à lista
+	private void setPassengers(ArrayList<Integer> selected, ArrayList<Person> listOfPersons){
+
+        HashMap<String,String> item;
+
+        RouteHandler routeHandler = new RouteHandler(this);
+
+        routeHandler.open();
+
+        for(int pos: selected){
+            item = new HashMap<String,String>();
+
+            Person p = getSelectedPerson(listOfPersons, passengers[pos].toString());
+
+            Route route = routeHandler.getRoute(p.getUsual_route());
+
+            item.put( "line1", p.getName());
+            item.put( "line2", route.getName());
+
+            list.add(item);
+        }
+
+        routeHandler.close();
+
+        simpleAdapter = new SimpleAdapter(this, list, android.R.layout.two_line_list_item ,
+                                new String[] { "line1","line2" },
+                                new int[] {android.R.id.text1, android.R.id.text2});
+
+        passengerListView.setAdapter(simpleAdapter);
+    }
+
+    private void removeDriverfromPassengers(String name){
+
+        HashMap<String,String> item = null;
+
+        for(HashMap<String, String> pair: list){
+
+            if(pair.containsValue(name))
+                item = pair;
+        }
+
+        if(item != null)
+            list.remove(item);
+
+        simpleAdapter = new SimpleAdapter(this, list, android.R.layout.two_line_list_item ,
+                new String[] { "line1","line2" },
+                new int[] {android.R.id.text1, android.R.id.text2});
+
+        passengerListView.setAdapter(simpleAdapter);
+    }
+
+    private Person getSelectedPerson(ArrayList<Person> listOfPersons, String name){
+
+        Person p = null;
+
+        for(Person person: listOfPersons){
+
+            if(person.getName().equalsIgnoreCase(name))
+                p = person;
+        }
+
+        return p;
+    }
+
+    private boolean isAlreadySelected(String name, ArrayList<HashMap<String, String>> listSelected){
+
+        boolean selected = false;
+
+        for(HashMap<String, String> pair: listSelected){
+
+            if(pair.containsValue(name))
+                selected = true;
+        }
+
+        return selected;
+    }
+
 	private ArrayList<Person> getDrivers(){
 		
 		ArrayList<Person> drivers = new ArrayList<Person>();
@@ -155,8 +276,6 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		Cursor c = personHandler.getAllDrivers();
 		
 		c.moveToFirst();
-		
-		personList = new ArrayList<Person>();		
 		
 	    while (!c.isAfterLast()) {
 	    	
@@ -182,8 +301,6 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		
 		c.moveToFirst();
 		
-		personList = new ArrayList<Person>();		
-		
 	    while (!c.isAfterLast()) {
 	    	
 	    	Route route = new Route(c.getInt(0), c.getString(1));
@@ -197,5 +314,6 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		return routes;
 		
 	}
-	
+
+
 }
