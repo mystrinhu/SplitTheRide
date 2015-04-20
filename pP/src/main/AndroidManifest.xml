@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.splittheride"
+    package="com.splitTheRide.splittheride"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -21,7 +21,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="com.example.splittheride.MainActivity"
+            android:name="com.splitTheRide.splittheride.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.splittheride.Accounts"
+            android:name="com.splitTheRide.splittheride.Accounts"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName="com.example.splittheride.MainActivity" >
+            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,12 +41,12 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.MainActivity" />
+                android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.splittheride.Transactions"
+            android:name="com.splitTheRide.splittheride.Transactions"
             android:label="@string/title_activity_transactions"
-            android:parentActivityName="com.example.splittheride.MainActivity" >
+            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,12 +55,12 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.MainActivity" />
+                android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.splittheride.Settings"
+            android:name="com.splitTheRide.splittheride.Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.example.splittheride.MainActivity" >
+            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,111 +69,111 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.MainActivity" />
+                android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.trips.CalendarView"
+            android:name="com.splitTheRide.trips.CalendarView"
             android:label="@string/title_activity_calendar"
-            android:parentActivityName="com.example.splittheride.MainActivity" >
+            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.MainActivity" />
+                android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.settings.PersonsView"
+            android:name="com.splitTheRide.settings.PersonsView"
             android:label="@string/title_activity_persons"
-            android:parentActivityName="com.example.splittheride.Settings" >
+            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Settings" />
+                android:value="com.splitTheRide.splittheride.Settings" />
         </activity>
         <activity
-            android:name="com.example.settings.AddEditPerson"
+            android:name="com.splitTheRide.settings.AddEditPerson"
             android:label="@string/title_activity_persons"
-            android:parentActivityName="com.example.settings.PersonsView" >
+            android:parentActivityName="com.splitTheRide.settings.PersonsView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.settings.PersonsView" />
+                android:value="com.splitTheRide.settings.PersonsView" />
         </activity>
         <activity
-            android:name="com.example.settings.VehiclesView"
+            android:name="com.splitTheRide.settings.VehiclesView"
             android:label="@string/title_activity_vehicles"
-            android:parentActivityName="com.example.splittheride.Settings" >
+            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Settings" />
+                android:value="com.splitTheRide.splittheride.Settings" />
         </activity>
         <activity
-            android:name="com.example.settings.AddEditVehicle"
+            android:name="com.splitTheRide.settings.AddEditVehicle"
             android:label="@string/title_activity_vehicles"
-            android:parentActivityName="com.example.settings.VehiclesView" >
+            android:parentActivityName="com.splitTheRide.settings.VehiclesView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.settings.VehiclesView" />
+                android:value="com.splitTheRide.settings.VehiclesView" />
         </activity>
         <activity
-            android:name="com.example.settings.RoutesView"
+            android:name="com.splitTheRide.settings.RoutesView"
             android:label="@string/title_activity_routes"
-            android:parentActivityName="com.example.splittheride.Settings" >
+            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Settings" />
+                android:value="com.splitTheRide.splittheride.Settings" />
         </activity>
         <activity
-            android:name="com.example.settings.AddEditRoute"
+            android:name="com.splitTheRide.settings.AddEditRoute"
             android:label="@string/title_activity_routes"
-            android:parentActivityName="com.example.settings.RoutesView" >
+            android:parentActivityName="com.splitTheRide.settings.RoutesView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.settings.RoutesView" />
+                android:value="com.splitTheRide.settings.RoutesView" />
         </activity>
         <activity
-            android:name="com.example.settings.SegmentsView"
+            android:name="com.splitTheRide.settings.SegmentsView"
             android:label="@string/title_activity_segments"
-            android:parentActivityName="com.example.splittheride.Settings" >
+            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Settings" />
+                android:value="com.splitTheRide.splittheride.Settings" />
         </activity>
         <activity
-            android:name="com.example.settings.AddEditSegment"
+            android:name="com.splitTheRide.settings.AddEditSegment"
             android:label="@string/title_activity_segments"
-            android:parentActivityName="com.example.settings.SegmentsView" >
+            android:parentActivityName="com.splitTheRide.settings.SegmentsView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.settings.SegmentsView" />
+                android:value="com.splitTheRide.settings.SegmentsView" />
         </activity>
         <activity
-            android:name="com.example.trips.Trips"
+            android:name="com.splitTheRide.trips.Trips"
             android:label="@string/title_activity_trips"
-            android:parentActivityName="com.example.trips.CalendarView" >
+            android:parentActivityName="com.splitTheRide.trips.CalendarView" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.trips.CalendarView" />
+                android:value="com.splitTheRide.trips.CalendarView" />
         </activity>
         <activity
-            android:name="com.example.splittheride.AccountValues"
+            android:name="com.splitTheRide.splittheride.AccountValues"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName="com.example.splittheride.Accounts" >
+            android:parentActivityName="com.splitTheRide.splittheride.Accounts" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Accounts" />
+                android:value="com.splitTheRide.splittheride.Accounts" />
         </activity>
         <activity
-            android:name="com.example.settings.AddTransaction"
+            android:name="com.splitTheRide.settings.AddTransaction"
             android:label="@string/title_activity_add_transaction"
-            android:parentActivityName="com.example.splittheride.Transactions" >
+            android:parentActivityName="com.splitTheRide.splittheride.Transactions" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splittheride.Transactions" />
+                android:value="com.splitTheRide.splittheride.Transactions" />
         </activity>
         <activity
-            android:name="com.example.trips.AddNewPassenger"
+            android:name="com.splitTheRide.trips.AddNewPassenger"
             android:label="@string/title_activity_add_new_passenger"
-            android:parentActivityName="com.example.trips.Trips" >
+            android:parentActivityName="com.splitTheRide.trips.Trips" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.trips.Trips" />
+                android:value="com.splitTheRide.trips.Trips" />
         </activity>
     </application>
 
