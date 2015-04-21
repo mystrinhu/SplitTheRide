@@ -167,14 +167,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Transactions" />
         </activity>
-        <activity
-            android:name="com.splitTheRide.trips.AddNewPassenger"
-            android:label="@string/title_activity_add_new_passenger"
-            android:parentActivityName="com.splitTheRide.trips.Trips" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.splitTheRide.trips.Trips" />
-        </activity>
+
     </application>
 
 </manifest>

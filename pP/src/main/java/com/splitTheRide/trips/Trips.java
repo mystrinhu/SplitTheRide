@@ -2,6 +2,7 @@ package com.splitTheRide.trips;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,17 +10,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.splitTheRide.custom.ExpandableListAdapter;
 import com.splitTheRide.database.PersonHandler;
 import com.splitTheRide.database.RouteHandler;
 import com.splitTheRide.entities.Person;
@@ -79,7 +83,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         driverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                removeDriverfromPassengers(parent.getItemAtPosition(position).toString());
+                removefromPassengers(parent.getItemAtPosition(position).toString());
             }
 
             @Override
@@ -108,6 +112,55 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		}
 		
 	}
+
+
+    // Remover passageiro da lista
+    public void removePassengerOnClickHandler(View v){
+
+        LinearLayout rl = (LinearLayout)v.getParent();
+        TextView tv = (TextView)rl.findViewById(R.id.line_a);
+        String name = tv.getText().toString();
+
+        removefromPassengers(name);
+    }
+
+    public void editPassengerOnClickHandler(View v){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select something");
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.custom_alert_dialog);
+        ExpandableListView listView = (ExpandableListView) layout.findViewById(R.id.routesListView);
+
+        // preparing list data
+        ArrayList<String> listDataHeader = new ArrayList<String>();
+        listDataHeader.add("string1");
+        listDataHeader.add("string2");
+
+        // ***** AINDA NÃO ESTÁ A FUNCIONAR ***************
+
+        HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+        List<String> string1_list = new ArrayList<String>();
+        string1_list.add("cena1");
+        string1_list.add("cena2");
+
+        List<String> string2_list = new ArrayList<String>();
+        string2_list.add("coisa1");
+        string2_list.add("coisa2");
+
+        listDataChild.put(listDataHeader.get(0), string1_list); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), string2_list);
+
+        ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        listView.setAdapter(listAdapter);
+
+        builder.setView(listView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     public void addNewPassengerHandler(View v){
 
@@ -213,14 +266,14 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
         routeHandler.close();
 
-        simpleAdapter = new SimpleAdapter(this, list, android.R.layout.two_line_list_item ,
+        simpleAdapter = new SimpleAdapter(this, list, R.layout.custom_passengers_layout ,
                                 new String[] { "line1","line2" },
-                                new int[] {android.R.id.text1, android.R.id.text2});
+                                new int[] {R.id.line_a, R.id.line_b});
 
         passengerListView.setAdapter(simpleAdapter);
     }
 
-    private void removeDriverfromPassengers(String name){
+    private void removefromPassengers(String name){
 
         HashMap<String,String> item = null;
 
@@ -233,9 +286,9 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         if(item != null)
             list.remove(item);
 
-        simpleAdapter = new SimpleAdapter(this, list, android.R.layout.two_line_list_item ,
+        simpleAdapter = new SimpleAdapter(this, list, R.layout.custom_passengers_layout ,
                 new String[] { "line1","line2" },
-                new int[] {android.R.id.text1, android.R.id.text2});
+                new int[] {R.id.line_a, R.id.line_b});
 
         passengerListView.setAdapter(simpleAdapter);
     }
