@@ -10,12 +10,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,13 +26,14 @@ import android.widget.TextView;
 import com.splitTheRide.custom.ExpandableListAdapter;
 import com.splitTheRide.database.PersonHandler;
 import com.splitTheRide.database.RouteHandler;
+import com.splitTheRide.database.SegmentHandler;
 import com.splitTheRide.entities.Person;
 import com.splitTheRide.entities.Route;
 import com.splitTheRide.splittheride.R;
 
 public class Trips extends ActionBarActivity implements OnClickListener{
 
-	private EditText date;
+	private TextView date;
 	private Spinner driverSpinner;
     private ListView passengerListView;
 	private Button save, cancel;
@@ -49,7 +50,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trips_layout);
 		
-		date = (EditText) findViewById(R.id.date);
+		date = (TextView) findViewById(R.id.date);
 		driverSpinner = (Spinner) findViewById(R.id.spinner2);
 		save = (Button) findViewById(R.id.saveTrip);
 		cancel = (Button) findViewById(R.id.cancelTrip);
@@ -77,7 +78,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 				
 		driversList = getDrivers();
 		
-	    driverAdapter = new ArrayAdapter<Person>(this, android.R.layout.simple_list_item_1, driversList);
+	    driverAdapter = new ArrayAdapter<Person>(this, R.layout.custom_spinner_layout, driversList);
 		driverSpinner.setAdapter(driverAdapter);
 
         driverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -124,39 +125,89 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         removefromPassengers(name);
     }
 
+
+    // Editar os segmentos/Rotas escolhidas
+
     public void editPassengerOnClickHandler(View v){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select something");
+        builder.setTitle("Select the route or segments");
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.custom_alert_dialog);
-        ExpandableListView listView = (ExpandableListView) layout.findViewById(R.id.routesListView);
 
-        // preparing list data
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialoglayout = inflater.inflate(R.layout.custom_alert_dialog_routes, null);
+        ExpandableListView listView = (ExpandableListView) dialoglayout.findViewById(R.id.routesListView);
+
+        // Headers
         ArrayList<String> listDataHeader = new ArrayList<String>();
-        listDataHeader.add("string1");
-        listDataHeader.add("string2");
+        listDataHeader.add("Routes");
+        listDataHeader.add("Segments");
 
-        // ***** AINDA NÃO ESTÁ A FUNCIONAR ***************
+        // Opções
 
         HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-        List<String> string1_list = new ArrayList<String>();
-        string1_list.add("cena1");
-        string1_list.add("cena2");
 
-        List<String> string2_list = new ArrayList<String>();
-        string2_list.add("coisa1");
-        string2_list.add("coisa2");
+        // Routes
+        List<String> routes_list = new ArrayList<String>();
 
-        listDataChild.put(listDataHeader.get(0), string1_list); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), string2_list);
+        RouteHandler route_handler = new RouteHandler(this);
+        route_handler.open();
+
+        Cursor c = route_handler.returnRoutes();
+        c.moveToFirst();
+
+        while(!c.isAfterLast()){
+            routes_list.add(c.getString(1));
+            c.moveToNext();
+        }
+
+
+        route_handler.close();
+
+        // Segments
+        List<String> segments_list = new ArrayList<String>();
+
+        SegmentHandler segmentHandler = new SegmentHandler(this);
+        segmentHandler.open();
+
+        Cursor c1 = segmentHandler.returnSegments();
+        c1.moveToFirst();
+
+        while(!c1.isAfterLast()){
+
+            segments_list.add(c1.getString(1));
+            c1.moveToNext();
+        }
+
+        segmentHandler.close();
+
+
+        listDataChild.put(listDataHeader.get(0), routes_list); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), segments_list);
 
         ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
         // setting list adapter
         listView.setAdapter(listAdapter);
 
-        builder.setView(listView);
+        builder.setView(dialoglayout);
+        builder.setInverseBackgroundForced(true);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                  })
+               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+
+                   }
+               });
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }

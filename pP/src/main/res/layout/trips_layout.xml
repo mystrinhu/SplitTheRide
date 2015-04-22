@@ -13,21 +13,19 @@
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
         		android:text="Date"
         		android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    	<EditText android:id="@+id/date"
+    	<TextView android:id="@+id/date"
         		android:layout_width="match_parent"
         		android:layout_height="wrap_content"
                 android:layout_weight="1"
-        		android:clickable="false" 
-        		android:cursorVisible="false" 
-        		android:focusable="false" 
-        		android:focusableInTouchMode="false"
-        		android:ems="10"
-            android:layout_column="2">
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="2">
         		
-    	</EditText>
+    	</TextView>
         
     </TableRow>
         
@@ -39,6 +37,7 @@
         <TextView android:id="@+id/textView3"
         		android:layout_width="wrap_content"
         		android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
         		android:text="Driver"
         		android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -51,14 +50,18 @@
         
     </TableRow>
     
-    <TableRow 
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:background="#B8B8B8">
 		
         <TextView android:id="@+id/textView4"
-        		android:layout_width="wrap_content"
+        		android:layout_width="fill_parent"
         		android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="1"
         		android:text="Passengers"
         		android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -67,17 +70,19 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:id="@+id/action_add_passenger"
+             android:layout_gravity="center"
              android:onClick="addNewPassengerHandler"
              android:src="@drawable/ic_action_add_person" />
 
 
-    </TableRow>
+    </LinearLayout>
 
 
     <ListView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:id="@+id/passengerList"
               android:layout_marginTop="10dp"
+              android:layout_marginLeft="10dp"
               android:layout_column="1" />
 
 
