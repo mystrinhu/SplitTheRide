@@ -43,8 +43,8 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 		
 		if(editSegment.getIntExtra("distance", -1) != -1 || editSegment.getDoubleExtra("cost", -1) != -1){
 			
-			ab.setTitle("Edit Segment");
-			ok.setText("Edit");
+			ab.setTitle(R.string.edit_segment);
+			ok.setText(R.string.edit);
 			
 			name.setText(""+editSegment.getStringExtra("name"));
 			distance.setText(""+editSegment.getIntExtra("distance", 0));
@@ -52,8 +52,8 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 			segment_id = editSegment.getIntExtra("id", 0);
 		}else{
 		
-			ab.setTitle("Add Segment");
-			ok.setText("Add");
+			ab.setTitle(R.string.add_segment);
+			ok.setText(R.string.add);
 		}
 		
 		
@@ -76,12 +76,12 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 							double cost_value = Double.parseDouble(getCost);
 							
 							if(getDistance.length() == 0 || getCost.length() == 0 || getName.length() == 0){
-								showMessage("Error", "All fields are mandatory");
+								showMessage(getResources().getString(R.string.error), getResources().getString(R.string.all_fields_mandatory));
 							}else{
 							
 								if(ok.getText() == "Add"){
 									handler.insertSegment(getName, distance_value, cost_value);
-									showMessage("Segment", "Segment inserted");
+									showMessage(getResources().getString(R.string.segment), getResources().getString(R.string.segment_added));
 								
 									distance.setText("");
 									cost.setText("");
@@ -89,12 +89,12 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 								}else{
 								
 									if(handler.editSegment(segment_id, getName, distance_value, cost_value)){
-										showMessage("Segment","Segment edited successfully");
+										showMessage(getResources().getString(R.string.segment), getResources().getString(R.string.segment_edited));
 									
 										distance.setText("");
 										cost.setText("");
 								}else 
-									showMessage("Error", "It was not possible to edit segment");
+									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.segment_error));
 								}
 							}
 							
@@ -120,7 +120,7 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 		AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.setTitle(title);
 		dialog.setMessage(message);
-		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+		dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

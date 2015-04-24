@@ -23,7 +23,7 @@
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
         			android:layout_gravity="center_vertical"
-        			android:text="Name"
+        			android:text="@string/name"
         			android:textAppearance="?android:attr/textAppearanceMedium" />
 	    
 	    	<EditText android:id="@+id/name"
@@ -41,7 +41,7 @@
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
         			android:layout_gravity="center_vertical"
-        			android:text="Initials"
+        			android:text="@string/initials"
         			android:textAppearance="?android:attr/textAppearanceMedium" />
 
     		<EditText android:id="@+id/short_name"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Usual route"
+                android:text="@string/usual_route"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
@@ -84,12 +84,12 @@
 	    <Button android:id="@+id/ok"
 	    		android:layout_width="120dp"
 	    		android:layout_height="wrap_content"
-	    		android:text="OK" />
+	    		android:text="@string/ok" />
 
    		<Button android:id="@+id/cancel"
    	    		android:layout_width="120dp"
    	    		android:layout_height="wrap_content"
-   	    		android:text="Cancel" />
+   	    		android:text="@string/cancel" />
 	    
 	</LinearLayout>
 

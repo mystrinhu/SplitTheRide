@@ -25,7 +25,7 @@
 
     <ImageButton
         android:id="@+id/editPassenger"
-        android:contentDescription="Edit this info"
+        android:contentDescription="@string/edit_button_description"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:onClick="editPassengerOnClickHandler"
@@ -34,6 +34,7 @@
 
     <ImageButton
         android:id="@+id/removePassenger"
+        android:contentDescription="@string/delete_button_description"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:onClick="removePassengerOnClickHandler"

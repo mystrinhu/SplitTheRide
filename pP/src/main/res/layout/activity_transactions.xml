@@ -16,19 +16,19 @@
             <TextView android:id="@+id/date"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Date"/>
+                    android:text="@string/date"/>
             <TextView android:id="@+id/value"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Value"/>
+                    android:text="@string/value"/>
             <TextView android:id="@+id/from"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="From"/>
+                    android:text="@string/from"/>
             <TextView android:id="@+id/to"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="To"/>
+                    android:text="@string/to"/>
         </TableRow>
 
 

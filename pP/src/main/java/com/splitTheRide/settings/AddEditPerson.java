@@ -60,8 +60,8 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		
 		if(editPerson.getStringExtra("name") != null || editPerson.getStringExtra("short_name") != null){
 			
-			ab.setTitle("Edit Person");
-			ok.setText("Edit");
+			ab.setTitle(R.string.edit_person);
+			ok.setText(R.string.edit);
 			
 			name.setText(editPerson.getStringExtra("name"));
 			short_name.setText(editPerson.getStringExtra("short_name"));
@@ -79,8 +79,8 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 
 		}else{
 		
-			ab.setTitle("Add Person");
-			ok.setText("Add");
+			ab.setTitle(R.string.add_person);
+			ok.setText(R.string.add);
 		}
 		
 		
@@ -95,9 +95,6 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 			case R.id.ok:	String getName = name.getText().toString();
 							String getSName = short_name.getText().toString();
                             Route selected_route = (Route) usual_route.getSelectedItem();
-                           // Log.d("route", "" + selected_route.getID());
-
-                            // Ando por aqui
 							
 							handler = new PersonHandler(this);
 							handler.open();
@@ -108,11 +105,11 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 								(ok.getText().toString().equalsIgnoreCase("Edit") &&
 								 !editPerson.getStringExtra("short_name").equalsIgnoreCase(getSName)))
 								&& handler.shortNameExists(getSName)){
-								showMessage("Error", "These initials are already in use. Choose other initials.");
+								showMessage(getResources().getString(R.string.error), getResources().getString(R.string.initials_in_use));
 							}
 							else{
 								if(getName.length() == 0 || getSName.length() == 0){
-									showMessage("Error", "All fields are mandatory");
+									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.all_fields_mandatory));
 								}else{
 								
 									if(ok.getText() == "Add"){
@@ -125,7 +122,7 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 										
 										addAccounts(persons, id);
 										
-										showMessage("Person", "Person inserted");
+										showMessage(getResources().getString(R.string.person), getResources().getString(R.string.person_added));
 									
 										name.setText("");
 										short_name.setText("");
@@ -133,12 +130,12 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 									}else{
 									
 										if(handler.editPerson(person_id, getName, getSName, selected_route.getID())){
-											showMessage("Person", getName + " edited successfully");
+											showMessage(getResources().getString(R.string.person), getName + getResources().getString(R.string.edit_success));
 										
 											name.setText("");
 											short_name.setText("");
 										}else 
-											showMessage("Error", "It was not possible to edit "+ getName);
+											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error) + getName);
 									}
 								}
 							}
@@ -196,7 +193,7 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.setTitle(title);
 		dialog.setMessage(message);
-		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+		dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

@@ -52,8 +52,8 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		
 		if(editRoute.getStringExtra("name") != null){
 			
-			ab.setTitle("Edit Route");
-			ok.setText("Edit");
+			ab.setTitle(R.string.edit_route);
+			ok.setText(R.string.edit);
 			
 			name.setText(editRoute.getStringExtra("name"));
 			route_id = editRoute.getIntExtra("id", 0);
@@ -69,8 +69,8 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 			
 		}else{
 		
-			ab.setTitle("Add Route");
-			ok.setText("Add");
+			ab.setTitle(R.string.add_route);
+			ok.setText(R.string.add);
 		}
 	}
 		
@@ -86,26 +86,26 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 							handler.open();
 							
 							if(getName.length() == 0){
-									showMessage("Error", "Route name is mandatory");
+									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.route_name_mandatory));
 								}else{
 									if((ok.getText().toString().equalsIgnoreCase("Add") || 
 										(ok.getText().toString().equalsIgnoreCase("Edit") && !editRoute.getStringExtra("name").equalsIgnoreCase(getName)))
 										&& handler.routeNameExists(getName)){
-										showMessage("Error", "This name is already in use. Choose another name.");
+										showMessage(getResources().getString(R.string.error), getResources().getString(R.string.name_in_use));
 									}else if(ok.getText() == "Add"){
 										handler.insertRoute(getName);
-										showMessage("Route", "Route inserted");
+										showMessage(getResources().getString(R.string.route), getResources().getString(R.string.route_added));
 									
 										name.setText("");
 									
 									}else if(ok.getText() == "Edit"){
 									
 										if(handler.editRoute(route_id, getName)){
-											showMessage("Route", getName + " edited successfully");
+											showMessage(getResources().getString(R.string.route), getName + getResources().getString(R.string.edit_success));
 										
 											name.setText("");
 										}else 
-											showMessage("Error", "It was not possible to edit "+ getName);
+											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error)+ getName);
 									}
 								}
 
@@ -216,7 +216,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog dialog;
         
-        builder.setTitle("Select the desired segments");
+        builder.setTitle(R.string.select_segments);
         builder.setMultiChoiceItems(items, checkeditems, new DialogInterface.OnMultiChoiceClickListener() {
        
         	@Override
@@ -232,7 +232,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
         		}
         	}
         })
-        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        .setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
         	@Override
         	public void onClick(DialogInterface dialog, int id) {
         		String text = "";
@@ -244,7 +244,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
         		segments.setText(text);
         	}
         })
-        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
         	@Override
         	public void onClick(DialogInterface dialog, int id) {
         		//  Your code when user clicked on Cancel
@@ -262,7 +262,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.setTitle(title);
 		dialog.setMessage(message);
-		dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+		dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

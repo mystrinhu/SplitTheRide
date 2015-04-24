@@ -10,18 +10,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.splitTheRide.custom.ExpandableListAdapter;
 import com.splitTheRide.database.PersonHandler;
@@ -140,6 +144,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         View dialoglayout = inflater.inflate(R.layout.custom_alert_dialog_routes, null);
         ExpandableListView listView = (ExpandableListView) dialoglayout.findViewById(R.id.routesListView);
 
+
         // Headers
         ArrayList<String> listDataHeader = new ArrayList<String>();
         listDataHeader.add("Routes");
@@ -192,8 +197,28 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         // setting list adapter
         listView.setAdapter(listAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("cenas", "coisas");
+            }
+        });
+
+
+        /*listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                //Toast.makeText(getApplicationContext(), "cenas", Toast.LENGTH_LONG).show();
+
+                Log.d("cenas", "coisas");
+
+                return true;
+            }
+        });*/
+
         builder.setView(dialoglayout);
         builder.setInverseBackgroundForced(true);
+
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override

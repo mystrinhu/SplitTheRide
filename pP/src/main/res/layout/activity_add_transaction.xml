@@ -14,7 +14,7 @@
         <TableRow>
             <TextView android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Date"/>
+                android:text="@string/date"/>
 
             <EditText android:id="@+id/date"
                 android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         <TableRow>
             <TextView android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Value"/>
+                android:text="@string/value"/>
 
             <EditText android:id="@+id/value"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             <TextView android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="Payer"/>
+                android:text="@string/payer"/>
 
             <Spinner android:id="@+id/spinner_payer"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             <TextView android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="Receiver"/>
+                android:text="@string/receiver"/>
 
             <Spinner android:id="@+id/spinner_receiver"
                 android:layout_height="wrap_content"
@@ -58,12 +58,12 @@
             <Button android:id="@+id/ok_button"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="OK"/>
+                android:text="@string/ok"/>
 
             <Button android:id="@+id/cancel_button"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"/>
+                android:text="@string/cancel"/>
         </TableRow>
     </TableLayout>
 

@@ -24,7 +24,7 @@
         			android:layout_height="wrap_content"
                     android:layout_weight="1"
         			android:layout_gravity="center_vertical"
-        			android:text="Name"
+        			android:text="@string/name"
         			android:textAppearance="?android:attr/textAppearanceMedium" />
         
         	<EditText android:id="@+id/segment_name"
@@ -33,7 +33,7 @@
                     android:layout_weight="1"
         			android:ems="10"
         			android:inputType="text" 
-        			android:hint="Ex. porto-famalicão, braga-porto" />
+        			android:hint="@string/segment_name_example" />
         
     	</TableRow>
     
@@ -46,7 +46,7 @@
         			android:layout_height="wrap_content"
                     android:layout_weight="1"
         			android:layout_gravity="center_vertical"
-        			android:text="Distance"
+        			android:text="@string/distance"
         			android:textAppearance="?android:attr/textAppearanceMedium" />
         
         	<EditText android:id="@+id/segment_distance"
@@ -55,7 +55,7 @@
                     android:layout_weight="1"
         			android:ems="10"
         			android:inputType="number" 
-        			android:hint="Ex. 10 km" />
+        			android:hint="@string/distance_example" />
         
     	</TableRow>
     	
@@ -68,7 +68,7 @@
         			android:layout_height="wrap_content"
                     android:layout_weight="1"
         			android:layout_gravity="center_vertical"
-        			android:text="Cost"
+        			android:text="@string/cost"
         			android:textAppearance="?android:attr/textAppearanceMedium" />
         
         	<EditText android:id="@+id/segment_cost"
@@ -76,7 +76,7 @@
 	    			android:layout_height="wrap_content"
                     android:layout_weight="1"
 	    			android:ems="10"
-	    			android:hint="Ex. 2.5 €"
+	    			android:hint="@string/cost"
 	    			android:inputType="numberDecimal" >
 			</EditText>
         
@@ -96,13 +96,13 @@
 	    		android:layout_width="120dp"
 	    		android:layout_height="wrap_content"
                 android:layout_weight="1"
-	    		android:text="OK" />
+	    		android:text="@string/ok" />
 
    		<Button android:id="@+id/cancel"
    	    		android:layout_width="120dp"
    	    		android:layout_height="wrap_content"
                 android:layout_weight="1"
-   	    		android:text="Cancel" />
+   	    		android:text="@string/cancel" />
 	    
 	</LinearLayout>
 

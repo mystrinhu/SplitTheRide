@@ -24,13 +24,13 @@
                 android:id="@+id/button1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Accounts" />
+                android:text="@string/title_activity_accounts" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Calendar" />
+                android:text="@string/title_activity_calendar" />
             
         </TableRow>
 
@@ -43,7 +43,7 @@
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transactions" />
+                android:text="@string/title_activity_transactions" />
 
             <Button
                 android:id="@+id/button4"
