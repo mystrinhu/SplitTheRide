@@ -1,5 +1,5 @@
-C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\classes\debug
-C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-11a06833a982e89b8c310d6dccce7f446841020f.jar
-C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\date4j-69e2525896d81f4d3683a8e02f49776be47c884f.jar
-C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-97358a65232c9fad734964266bf7242f43eb26a7.jar
-C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\support-v4-19.1.0-c30e376a8a37b42530721aa3276156097e39d8df.jar
+C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\classes\debug
+C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\classes-401c68bf593816241a5229342bbee22351ba1e73.jar
+C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\date4j-fc9e79cb5b30e93fd08e5ba9f82e74601f256ef7.jar
+C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\classes-e48d5ad051371c6d66140a907c92d20d41ab00c5.jar
+C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\support-v4-19.1.0-c30e376a8a37b42530721aa3276156097e39d8df.jar

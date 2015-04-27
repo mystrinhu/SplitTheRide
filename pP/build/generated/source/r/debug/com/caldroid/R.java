@@ -45,7 +45,7 @@ public final class R {
 		public static final int date_grid_fragment = 0x7f03002b;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f0a0010;
+		public static final int app_name = 0x7f0a0013;
 	}
 	public static final class style {
 		public static final int AppBaseTheme = 0x7f0b0000;

@@ -2,32 +2,32 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\PP\caldroid\unspecified\libs\date4j.jar"
+        jar="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\exploded-aar\SplitTheRide\caldroid\unspecified\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="18889a91ddc87a008bce37fb516047f8aa43331a">
-        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\date4j-69e2525896d81f4d3683a8e02f49776be47c884f.jar" />
+        sha1="b2d6253cd320f001f6765898bf89dcf69f8931f5">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\classes-401c68bf593816241a5229342bbee22351ba1e73.jar" />
     </item>
     <item
-        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        jar="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
-        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-97358a65232c9fad734964266bf7242f43eb26a7.jar" />
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\classes-e48d5ad051371c6d66140a907c92d20d41ab00c5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\exploded-aar\SplitTheRide\caldroid\unspecified\libs\date4j.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="18889a91ddc87a008bce37fb516047f8aa43331a">
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\date4j-fc9e79cb5b30e93fd08e5ba9f82e74601f256ef7.jar" />
     </item>
     <item
         jar="C:\Program Files (x86)\Android\android-sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
-        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\support-v4-19.1.0-c30e376a8a37b42530721aa3276156097e39d8df.jar" />
-    </item>
-    <item
-        jar="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\exploded-aar\PP\caldroid\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ddd7d92c8f7d6c075ecacf4ca213c55c4ef3c905">
-        <dex dex="C:\Users\Joao\AndroidStudioProjects\PP\pP\build\intermediates\pre-dexed\debug\classes-11a06833a982e89b8c310d6dccce7f446841020f.jar" />
+        <dex dex="C:\Users\Joao\AndroidStudioProjects\SplitTheRide\pP\build\intermediates\pre-dexed\debug\support-v4-19.1.0-c30e376a8a37b42530721aa3276156097e39d8df.jar" />
     </item>
 
 </items>

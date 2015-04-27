@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Splittheride.iml" filepath="$PROJECT_DIR$/Splittheride.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SplitTheRide.iml" filepath="$PROJECT_DIR$/SplitTheRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/caldroid/caldroid.iml" filepath="$PROJECT_DIR$/caldroid/caldroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pP/splittheride.iml" filepath="$PROJECT_DIR$/pP/splittheride.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pP/pP.iml" filepath="$PROJECT_DIR$/pP/pP.iml" />
     </modules>
   </component>
 </project>
