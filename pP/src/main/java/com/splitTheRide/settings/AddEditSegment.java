@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -78,11 +79,12 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 							if(getDistance.length() == 0 || getCost.length() == 0 || getName.length() == 0){
 								showMessage(getResources().getString(R.string.error), getResources().getString(R.string.all_fields_mandatory));
 							}else{
-							
-								if(ok.getText() == "Add"){
+
+								if(ok.getText().toString().contentEquals(getResources().getString(R.string.add))){
 									handler.insertSegment(getName, distance_value, cost_value);
 									showMessage(getResources().getString(R.string.segment), getResources().getString(R.string.segment_added));
-								
+
+									name.setText("");
 									distance.setText("");
 									cost.setText("");
 
@@ -90,7 +92,8 @@ public class AddEditSegment extends ActionBarActivity implements OnClickListener
 								
 									if(handler.editSegment(segment_id, getName, distance_value, cost_value)){
 										showMessage(getResources().getString(R.string.segment), getResources().getString(R.string.segment_edited));
-									
+
+										name.setText("");
 										distance.setText("");
 										cost.setText("");
 								}else 

@@ -82,8 +82,7 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 			ab.setTitle(R.string.add_person);
 			ok.setText(R.string.add);
 		}
-		
-		
+
 	}
 		
 
@@ -101,8 +100,8 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 							
 							getSName = getSName.toUpperCase(Locale.US);
 							
-							if((ok.getText().toString().equalsIgnoreCase("Add") || 
-								(ok.getText().toString().equalsIgnoreCase("Edit") &&
+							if((ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add)) ||
+								(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.edit)) &&
 								 !editPerson.getStringExtra("short_name").equalsIgnoreCase(getSName)))
 								&& handler.shortNameExists(getSName)){
 								showMessage(getResources().getString(R.string.error), getResources().getString(R.string.initials_in_use));
@@ -112,7 +111,7 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.all_fields_mandatory));
 								}else{
 								
-									if(ok.getText() == "Add"){
+									if(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add))){
 										
 										Cursor persons = handler.returnAllPersonsData();
 										
@@ -130,12 +129,12 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 									}else{
 									
 										if(handler.editPerson(person_id, getName, getSName, selected_route.getID())){
-											showMessage(getResources().getString(R.string.person), getName + getResources().getString(R.string.edit_success));
+											showMessage(getResources().getString(R.string.person), getName + " "+ getResources().getString(R.string.edit_success));
 										
 											name.setText("");
 											short_name.setText("");
 										}else 
-											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error) + getName);
+											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error) + " "+ getName);
 									}
 								}
 							}

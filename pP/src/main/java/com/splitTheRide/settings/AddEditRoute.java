@@ -88,24 +88,24 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 							if(getName.length() == 0){
 									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.route_name_mandatory));
 								}else{
-									if((ok.getText().toString().equalsIgnoreCase("Add") || 
-										(ok.getText().toString().equalsIgnoreCase("Edit") && !editRoute.getStringExtra("name").equalsIgnoreCase(getName)))
+									if((ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add)) ||
+										(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.edit)) && !editRoute.getStringExtra("name").equalsIgnoreCase(getName)))
 										&& handler.routeNameExists(getName)){
 										showMessage(getResources().getString(R.string.error), getResources().getString(R.string.name_in_use));
-									}else if(ok.getText() == "Add"){
+									}else if(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add))){
 										handler.insertRoute(getName);
 										showMessage(getResources().getString(R.string.route), getResources().getString(R.string.route_added));
 									
 										name.setText("");
 									
-									}else if(ok.getText() == "Edit"){
+									}else if(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.edit))){
 									
 										if(handler.editRoute(route_id, getName)){
-											showMessage(getResources().getString(R.string.route), getName + getResources().getString(R.string.edit_success));
+											showMessage(getResources().getString(R.string.route), getName + " " + getResources().getString(R.string.edit_success));
 										
 											name.setText("");
 										}else 
-											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error)+ getName);
+											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error)+" "+ getName);
 									}
 								}
 

@@ -192,46 +192,27 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         listDataChild.put(listDataHeader.get(0), routes_list); // Header, Child data
         listDataChild.put(listDataHeader.get(1), segments_list);
 
-        ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        final ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
         // setting list adapter
         listView.setAdapter(listAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("cenas", "coisas");
-            }
-        });
-
-
-        /*listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                //Toast.makeText(getApplicationContext(), "cenas", Toast.LENGTH_LONG).show();
-
-                Log.d("cenas", "coisas");
-
-                return true;
-            }
-        });*/
-
         builder.setView(dialoglayout);
         builder.setInverseBackgroundForced(true);
-
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
 
+                                            Log.d("coisas", listAdapter.getSelectedItems().toString());
                                         }
                                   })
                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialog, int which) {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
 
-                   }
-               });
+                                            }
+                                  });
 
         AlertDialog dialog = builder.create();
         dialog.show();

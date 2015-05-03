@@ -48,7 +48,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 													VEHICLE_CONSUMPTION+" double not null, "+
 													VEHICLE_PERSON_ID+" integer, "+
 													"FOREIGN KEY("+ VEHICLE_PERSON_ID +") REFERENCES "+ PERSON_TABLE_NAME +" ("+PERSON_ID+") );";
-	
+
+
+	// TABLE TRIP_PASSENGER
+
+	/*
+		  ESTOU POR AQUI. FALTA CRIAR A TABELA QUE RELACIONA OS PASSAGEIROS COM AS VIAGENS
+	 */
+
 	
 	// TABLE TRIP
 	

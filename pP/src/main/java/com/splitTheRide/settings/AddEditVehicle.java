@@ -125,7 +125,7 @@ public class AddEditVehicle extends ActionBarActivity implements OnClickListener
 								
 								p_handler.close();
 								
-								if(ok.getText() == "Add"){
+								if(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add))){
 									
 									handler.insertVehicle(getName, cons, person_id);
 									showMessage("Vehicle", "Vehicle inserted");
