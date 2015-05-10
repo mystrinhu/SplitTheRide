@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -48,8 +49,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		
 		editRoute = getIntent();
 		ActionBar ab = getSupportActionBar();
-		
-		
+
 		if(editRoute.getStringExtra("name") != null){
 			
 			ab.setTitle(R.string.edit_route);
@@ -59,6 +59,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 			route_id = editRoute.getIntExtra("id", 0);
 			
 			String text = "";
+
 			if(editRoute.getStringArrayExtra("segments").length != 0){
 				for(String s: editRoute.getStringArrayExtra("segments")){
 					text = text.concat(s+"\n");
@@ -71,6 +72,17 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		
 			ab.setTitle(R.string.add_route);
 			ok.setText(R.string.add);
+
+			String text = "";
+
+			if(editRoute.getCharSequenceArrayListExtra("segments") != null){
+				for(CharSequence s: editRoute.getCharSequenceArrayListExtra("segments")){
+					text = text.concat(s+"\n");
+				}
+
+				segments.setText(text);
+			}
+
 		}
 	}
 		

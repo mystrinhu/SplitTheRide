@@ -2,7 +2,6 @@ package com.splitTheRide.trips;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,28 +10,24 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.splitTheRide.custom.ExpandableListAdapter;
+import com.splitTheRide.database.ComposedRouteHandler;
 import com.splitTheRide.database.PersonHandler;
 import com.splitTheRide.database.RouteHandler;
 import com.splitTheRide.database.SegmentHandler;
 import com.splitTheRide.entities.Person;
 import com.splitTheRide.entities.Route;
+import com.splitTheRide.settings.AddEditRoute;
 import com.splitTheRide.splittheride.R;
 
 public class Trips extends ActionBarActivity implements OnClickListener{
@@ -48,6 +43,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 	private ArrayAdapter<Person> driverAdapter;
     private SimpleAdapter simpleAdapter;
     private ArrayList<Integer> selectedPassengers;
+    private final ArrayList<CharSequence> mSelectedItems = new ArrayList<CharSequence>();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -130,49 +126,37 @@ public class Trips extends ActionBarActivity implements OnClickListener{
     }
 
 
+    private void showDialog(){
+        AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+
+        newDialog.setTitle("Inexistent route")
+                .setMessage("This route does not exist. Do you wish to add it?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Trips.this, AddEditRoute.class);
+
+                        intent.putExtra("segments", mSelectedItems );
+
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        newDialog.create();
+        newDialog.show();
+    }
+
     // Editar os segmentos/Rotas escolhidas
 
     public void editPassengerOnClickHandler(View v){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select the route or segments");
-
-        LinearLayout layout = (LinearLayout) findViewById(R.id.custom_alert_dialog);
-
-
-        LayoutInflater inflater = getLayoutInflater();
-        View dialoglayout = inflater.inflate(R.layout.custom_alert_dialog_routes, null);
-        ExpandableListView listView = (ExpandableListView) dialoglayout.findViewById(R.id.routesListView);
-
-
-        // Headers
-        ArrayList<String> listDataHeader = new ArrayList<String>();
-        listDataHeader.add("Routes");
-        listDataHeader.add("Segments");
-
-        // Opções
-
-        HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-
-        // Routes
-        List<String> routes_list = new ArrayList<String>();
-
-        RouteHandler route_handler = new RouteHandler(this);
-        route_handler.open();
-
-        Cursor c = route_handler.returnRoutes();
-        c.moveToFirst();
-
-        while(!c.isAfterLast()){
-            routes_list.add(c.getString(1));
-            c.moveToNext();
-        }
-
-
-        route_handler.close();
-
         // Segments
-        List<String> segments_list = new ArrayList<String>();
 
         SegmentHandler segmentHandler = new SegmentHandler(this);
         segmentHandler.open();
@@ -180,42 +164,61 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         Cursor c1 = segmentHandler.returnSegments();
         c1.moveToFirst();
 
-        while(!c1.isAfterLast()){
+        final CharSequence[] segments_list = new CharSequence[c1.getCount()];
+        int i=0;
 
-            segments_list.add(c1.getString(1));
+        while(!c1.isAfterLast()){
+            segments_list[i] = c1.getString(1);
+            i++;
+
             c1.moveToNext();
         }
 
         segmentHandler.close();
 
 
-        listDataChild.put(listDataHeader.get(0), routes_list); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), segments_list);
 
-        final ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // setting list adapter
-        listView.setAdapter(listAdapter);
+        // Set the dialog title
+        builder.setTitle("Select the segments")
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(segments_list, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which,
+                                                boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    mSelectedItems.add(segments_list[which]);
+                                } else if (mSelectedItems.contains(which)) {
+                                    // Else, if the item is already in the array, remove it
+                                    mSelectedItems.remove(segments_list[Integer.valueOf(which)]);
+                                }
+                            }
+                        })
+                        // Set the action buttons
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
 
-        builder.setView(dialoglayout);
-        builder.setInverseBackgroundForced(true);
+                        if (segmentsOfExistingRoute(mSelectedItems) == false) {
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
+                            showDialog();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
 
-                                            Log.d("coisas", listAdapter.getSelectedItems().toString());
-                                        }
-                                  })
-               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
-                                            }
-                                  });
+        builder.create();
+        builder.show();
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
 
@@ -425,5 +428,47 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		
 	}
 
+    private boolean segmentsOfExistingRoute(ArrayList<CharSequence> segments){
 
+        ArrayList<Route> routes = getRoutes();
+
+        ComposedRouteHandler composedRouteHandler = new ComposedRouteHandler(getApplicationContext());
+
+        composedRouteHandler.open();
+
+        boolean found = false;
+
+        for(int pos=0; pos<routes.size() && !found; pos++){
+
+            Cursor c = composedRouteHandler.getAllRouteSegments(routes.get(pos).getID());
+
+            c.moveToFirst();
+            ArrayList segments_in_route = new ArrayList();
+
+            while(!c.isAfterLast()){
+
+                segments_in_route.add(c.getString(0));
+                c.moveToNext();
+            }
+
+            boolean equal = true;
+
+            if(segments_in_route.size() == segments.size()){
+
+                for(int i=0; i < segments.size() && equal ; i++){
+
+                    if(segments_in_route.contains(segments.get(i))==false)
+                        equal = false;
+                }
+            }else
+                equal = false;
+
+            if(equal)
+                found = true;
+        }
+
+        composedRouteHandler.close();
+
+        return found;
+    }
 }
