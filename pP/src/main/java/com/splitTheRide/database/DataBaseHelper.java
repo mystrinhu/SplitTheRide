@@ -50,27 +50,21 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 													"FOREIGN KEY("+ VEHICLE_PERSON_ID +") REFERENCES "+ PERSON_TABLE_NAME +" ("+PERSON_ID+") );";
 
 
-	// TABLE TRIP_PASSENGER
-
-	/*
-		  ESTOU POR AQUI. FALTA CRIAR A TABELA QUE RELACIONA OS PASSAGEIROS COM AS VIAGENS
-	 */
-
 	
 	// TABLE TRIP
 	
 	public static final String TRIP_ID = "_id";
 	public static final String TRIP_DATE = "trip_date";
-	public static final String TRIP_ROUTE_ID = "route_id";
+	public static final String TRIP_DRIVER_ID = "driver_id";
 	public static final String TRIP_VEHICLE_ID = "vehicle_id";
 	public static final String TRIP_TABLE_NAME = "Trips";
 	
 	public static final String CREATE_TABLE_TRIP = "create table "+TRIP_TABLE_NAME+
 												   " ("+ TRIP_ID + " integer primary key autoincrement, "+
 												   TRIP_DATE + " date not null, "+
-												   TRIP_ROUTE_ID + " integer, "+
+												   TRIP_DRIVER_ID + " integer, "+
 												   TRIP_VEHICLE_ID + " integer, "+
-												   "FOREIGN KEY(" + TRIP_ROUTE_ID + ") REFERENCES "+ ROUTE_TABLE_NAME+ " ("+ROUTE_ID+"), "+
+												   "FOREIGN KEY(" + TRIP_DRIVER_ID + ") REFERENCES "+ PERSON_TABLE_NAME+ " ("+PERSON_ID+"), "+
 												   "FOREIGN KEY(" + TRIP_VEHICLE_ID + ") REFERENCES "+ VEHICLE_TABLE_NAME+ " ("+VEHICLE_ID+") ); ";
 	
 	// TABLE SEGMENT
@@ -126,17 +120,20 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			  										  	  "FOREIGN KEY(" + TRANSACTION_RECEIVER_ID + ") REFERENCES "+ PERSON_TABLE_NAME+ " ("+PERSON_ID+") ); ";
 	
 	// TABLE TRIP_PERSON
-	
-	public static final String TP_TRIP_ID = "trip_id";
-	public static final String TP_PERSON_ID = "person_id";
-	public static final String TP_TABLE_NAME = "Trip_Person";
+
+    public static final String TP_TRIP_ID = "trip_id";
+    public static final String TP_PASSENGER_ID = "passenger_id";
+    public static final String TP_ROUTE_ID = "route_id";
+    public static final String TP_TABLE_NAME = "Trip_Person";
 	
 	public static final String CREATE_TABLE_TP = "create table "+TP_TABLE_NAME+
 			  									 " ("+ TP_TRIP_ID + " integer, "+
-			  									 TP_PERSON_ID + " integer, "+
-			  									 "PRIMARY KEY(" + TP_TRIP_ID + ", "	+ TP_PERSON_ID + ")"+ 
+			  									 TP_PASSENGER_ID + " integer, "+
+                                                 TP_ROUTE_ID + " integer,"+
+			  									 "PRIMARY KEY(" + TP_TRIP_ID + ", "	+ TP_PASSENGER_ID + ", "+ TP_ROUTE_ID + ")"+
 			  									 "FOREIGN KEY(" + TP_TRIP_ID + ") REFERENCES "+ TRIP_TABLE_NAME+ " ("+TRIP_ID+"), "+
-			  									 "FOREIGN KEY(" + TP_PERSON_ID + ") REFERENCES "+ PERSON_TABLE_NAME+ " ("+PERSON_ID+") ); ";
+                                                 "FOREIGN KEY(" + TP_ROUTE_ID + ") REFERENCES "+ ROUTE_TABLE_NAME+ " ("+ROUTE_ID+"), "+
+			  									 "FOREIGN KEY(" + TP_PASSENGER_ID + ") REFERENCES "+ PERSON_TABLE_NAME+ " ("+PERSON_ID+") ); ";
 	
 	
 	// TABLE COMPOSED_ROUTE

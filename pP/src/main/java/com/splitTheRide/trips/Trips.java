@@ -3,6 +3,7 @@ package com.splitTheRide.trips;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,16 +16,19 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.splitTheRide.database.ComposedRouteHandler;
 import com.splitTheRide.database.PersonHandler;
 import com.splitTheRide.database.RouteHandler;
 import com.splitTheRide.database.SegmentHandler;
+import com.splitTheRide.database.TripHandler;
 import com.splitTheRide.entities.Person;
 import com.splitTheRide.entities.Route;
 import com.splitTheRide.settings.AddEditRoute;
@@ -36,14 +40,16 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 	private Spinner driverSpinner;
     private ListView passengerListView;
 	private Button save, cancel;
-    private ArrayList<HashMap<String,String>> list;
+    private CheckBox round_trip;
+    private ArrayList<HashMap<String,String>> passengersList;
 	private ArrayList<Person> personList = new ArrayList<Person>(), driversList;
     private Cursor personCursor;
     private CharSequence[] passengers;
 	private ArrayAdapter<Person> driverAdapter;
     private SimpleAdapter simpleAdapter;
     private ArrayList<Integer> selectedPassengers;
-    private final ArrayList<CharSequence> mSelectedItems = new ArrayList<CharSequence>();
+    private ArrayList<CharSequence> mSelectedItems = new ArrayList<CharSequence>();
+    private String editingPassenger = "";
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -52,6 +58,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		
 		date = (TextView) findViewById(R.id.date);
 		driverSpinner = (Spinner) findViewById(R.id.spinner2);
+        round_trip = (CheckBox) findViewById(R.id.ida_volta);
 		save = (Button) findViewById(R.id.saveTrip);
 		cancel = (Button) findViewById(R.id.cancelTrip);
         passengerListView = (ListView) findViewById(R.id.passengerList);
@@ -93,7 +100,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
             }
         });
 
-        list = new ArrayList<HashMap<String,String>>();
+        passengersList = new ArrayList<HashMap<String,String>>();
 
 		save.setOnClickListener(this);
 		cancel.setOnClickListener(this);
@@ -104,7 +111,15 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-			case R.id.saveTrip:	break;
+			case R.id.saveTrip:     boolean roundtrip = round_trip.isChecked();
+                                    String driver = driverSpinner.getSelectedItem().toString();
+                                    String day = date.getText().toString();
+
+                                    if(passengersList.isEmpty())
+                                        showDialog("Error", "You must add at least one passenger.");
+                                    else saveTrip(roundtrip, driver, day);
+
+                                    break;
 			
 			case R.id.cancelTrip:	Intent calendar = new Intent(Trips.this, CalendarView.class);
 									
@@ -113,6 +128,64 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		}
 		
 	}
+
+    // mostra mensagem
+    private void showDialog(String title, String message){
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    // Guarda a informação das viagens
+
+    private void saveTrip(boolean roundtrip, String driver, String date){
+
+        Toast.makeText(this, roundtrip+" "+driver+" "+date, Toast.LENGTH_LONG).show();
+
+        int driverID;
+
+        // Driver
+        PersonHandler personHandler = new PersonHandler(this);
+
+        personHandler.open();
+        Cursor driver_cursor = personHandler.getIDfromName(driver);
+
+        driver_cursor.moveToFirst();
+
+        while(!driver_cursor.isAfterLast()){
+
+            driverID = driver_cursor.getInt(0);
+            driver_cursor.moveToNext();
+        }
+        personHandler.close();
+
+
+        TripHandler tripHandler = new TripHandler(this);
+
+        tripHandler.open();
+
+        tripHandler.insertTrip(date, driverID, )
+
+        tripHandler.close();
+
+
+        for(HashMap<String, String> passenger: passengersList){
+
+            Log.d("passenger", passenger.values().toString());
+        }
+
+
+    }
 
 
     // Remover passageiro da lista
@@ -125,8 +198,9 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         removefromPassengers(name);
     }
 
-
-    private void showDialog(){
+    // dialogo que informa que os segmentos escolhidos formam uma rota que ainda não
+    // foi definida e pergunta se quer definir
+    private void showInexistingRouteDialog(){
         AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
 
         newDialog.setTitle("Inexistent route")
@@ -138,7 +212,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
                         intent.putExtra("segments", mSelectedItems );
 
-                        startActivity(intent);
+                        startActivityForResult(intent, 0);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -152,9 +226,40 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         newDialog.show();
     }
 
+    // Recebe o nome da nova rota adicionada.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+
+            String newRoute = data.getStringExtra("name");
+
+            for(HashMap<String, String> lines: passengersList){
+
+                if(lines.get("line1").equalsIgnoreCase(editingPassenger)){
+                    lines.put("line2", newRoute);
+                }
+            }
+
+            simpleAdapter = new SimpleAdapter(this, passengersList, R.layout.custom_passengers_layout ,
+                    new String[] { "line1","line2" },
+                    new int[] {R.id.line_a, R.id.line_b});
+
+            passengerListView.setAdapter(simpleAdapter);
+
+        }
+    }
+
     // Editar os segmentos/Rotas escolhidas
 
     public void editPassengerOnClickHandler(View v){
+
+        // Determinar quem é o utilizador a ser editado
+        LinearLayout line_layout = (LinearLayout) v.getParent();
+        TextView text_test = (TextView) line_layout.findViewById(R.id.line_a);
+
+        editingPassenger = text_test.getText().toString();
+
+        mSelectedItems = new ArrayList<CharSequence>();
 
         // Segments
 
@@ -175,7 +280,6 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         }
 
         segmentHandler.close();
-
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -205,7 +309,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
                         if (segmentsOfExistingRoute(mSelectedItems) == false) {
 
-                            showDialog();
+                            showInexistingRouteDialog();
                         }
                     }
                 })
@@ -225,12 +329,11 @@ public class Trips extends ActionBarActivity implements OnClickListener{
     public void addNewPassengerHandler(View v){
 
         String driver = driverSpinner.getSelectedItem().toString();
-        ArrayList<Person> persons = new ArrayList<Person>();
 
         selectedPassengers = new ArrayList<Integer>();
 
         // Lista de passageiros (o tamanho depende do condutor e dos passageiros já escolhidos)
-        int numberOfSelected = list.size();
+        int numberOfSelected = passengersList.size();
         passengers = new CharSequence[personCursor.getCount()-1-numberOfSelected];
 
         personCursor.moveToFirst();
@@ -239,7 +342,7 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         while (!personCursor.isAfterLast()){
 
             if(!personCursor.getString(1).equalsIgnoreCase(driver) &&
-                    !isAlreadySelected(personCursor.getString(1), list)) {
+                    !isAlreadySelected(personCursor.getString(1), passengersList)) {
                 passengers[i] = personCursor.getString(1);
                 i++;
             }
@@ -321,12 +424,12 @@ public class Trips extends ActionBarActivity implements OnClickListener{
             item.put( "line1", p.getName());
             item.put( "line2", route.getName());
 
-            list.add(item);
+            passengersList.add(item);
         }
 
         routeHandler.close();
 
-        simpleAdapter = new SimpleAdapter(this, list, R.layout.custom_passengers_layout ,
+        simpleAdapter = new SimpleAdapter(this, passengersList, R.layout.custom_passengers_layout ,
                                 new String[] { "line1","line2" },
                                 new int[] {R.id.line_a, R.id.line_b});
 
@@ -337,16 +440,16 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
         HashMap<String,String> item = null;
 
-        for(HashMap<String, String> pair: list){
+        for(HashMap<String, String> pair: passengersList){
 
             if(pair.containsValue(name))
                 item = pair;
         }
 
         if(item != null)
-            list.remove(item);
+            passengersList.remove(item);
 
-        simpleAdapter = new SimpleAdapter(this, list, R.layout.custom_passengers_layout ,
+        simpleAdapter = new SimpleAdapter(this, passengersList, R.layout.custom_passengers_layout ,
                 new String[] { "line1","line2" },
                 new int[] {R.id.line_a, R.id.line_b});
 

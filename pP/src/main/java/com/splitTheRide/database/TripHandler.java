@@ -34,19 +34,24 @@ public class TripHandler {
 	public int tripsInDate(String date){
 		
 		Cursor cursor = db.query(DataBaseHelper.TRIP_TABLE_NAME, 
-						new String[]{DataBaseHelper.TRIP_ID, DataBaseHelper.TRIP_ROUTE_ID, DataBaseHelper.TRIP_VEHICLE_ID}, 
+						new String[]{DataBaseHelper.TRIP_ID, DataBaseHelper.TRIP_DRIVER_ID, DataBaseHelper.TRIP_VEHICLE_ID},
 						DataBaseHelper.TRIP_DATE + " =?", 
 						new String[]{date}, 
 						null, null, null);
 
 		return cursor.getCount();
 	}
+
+	public Cursor getLastTripID(){
+
+		return db.rawQuery("SELECT MAX("+DataBaseHelper.TRIP_ID+") FROM "+DataBaseHelper.TRIP_TABLE_NAME, null);
+	}
 	
-	public long insertData(String date, int route_id, int vehicle_id){
+	public long insertTrip(String date, int driver_id, int vehicle_id){
 		
 		ContentValues content = new ContentValues();
 		content.put(DataBaseHelper.TRIP_DATE,date);
-		content.put(DataBaseHelper.TRIP_ROUTE_ID, route_id);
+		content.put(DataBaseHelper.TRIP_DRIVER_ID, driver_id);
 		content.put(DataBaseHelper.TRIP_VEHICLE_ID, vehicle_id);
 				
 		return db.insertOrThrow(DataBaseHelper.TRIP_TABLE_NAME, null, content);
@@ -55,7 +60,7 @@ public class TripHandler {
 	
 	public Cursor returnData(){
 		
-		return db.query(DataBaseHelper.TRIP_TABLE_NAME, new String[]{DataBaseHelper.TRIP_DATE, DataBaseHelper.TRIP_ROUTE_ID, DataBaseHelper.TRIP_VEHICLE_ID}, null, null, null, null, null);
+		return db.query(DataBaseHelper.TRIP_TABLE_NAME, new String[]{DataBaseHelper.TRIP_DATE, DataBaseHelper.TRIP_DRIVER_ID, DataBaseHelper.TRIP_VEHICLE_ID}, null, null, null, null, null);
 	}
 	
 	

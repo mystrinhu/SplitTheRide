@@ -55,7 +55,7 @@ public class PersonHandler {
 	
 	public boolean removePerson(int id){
 		
-		return db.delete(DataBaseHelper.PERSON_TABLE_NAME, DataBaseHelper.PERSON_ID + " =?", new String[]{""+id}) > 0;
+		return db.delete(DataBaseHelper.PERSON_TABLE_NAME, DataBaseHelper.PERSON_ID + " =?", new String[]{"" + id}) > 0;
 		
 	}
 	
@@ -80,11 +80,11 @@ public class PersonHandler {
 	
 	public Cursor getShortNamefromID(int id){
 		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME, 
-				new String[]{DataBaseHelper.PERSON_SNAME}, 
-				DataBaseHelper.PERSON_ID + " =?", 
-				new String[]{""+id}, 
-				null, null, null);
+		return db.query(DataBaseHelper.PERSON_TABLE_NAME,
+                new String[]{DataBaseHelper.PERSON_SNAME},
+                DataBaseHelper.PERSON_ID + " =?",
+                new String[]{"" + id},
+                null, null, null);
 		
 	}
 
@@ -111,6 +111,15 @@ public class PersonHandler {
 						new String[]{short_name}, 
 						null, null, null);
 	}
+
+	public Cursor getIDfromName(String name){
+
+        return db.query(DataBaseHelper.PERSON_TABLE_NAME,
+                new String[]{DataBaseHelper.PERSON_ID},
+                DataBaseHelper.PERSON_NAME + " =?",
+                new String[]{name},
+                null, null, null);
+    }
 	
 	public Cursor returnAllPersonsShortName(){
 		

@@ -3,6 +3,7 @@ package com.splitTheRide.settings;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +33,8 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 	private SegmentHandler segmentHandler;
 	private int route_id = -1;
 	private Intent intent, editRoute;
+	private boolean fromTrips = false;
+	private String getName;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -80,6 +83,8 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 					text = text.concat(s+"\n");
 				}
 
+				fromTrips = true;
+
 				segments.setText(text);
 			}
 
@@ -92,7 +97,7 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		
 		switch(v.getId()){
-			case R.id.ok:	String getName = name.getText().toString();
+			case R.id.ok:	getName = name.getText().toString();
 							
 							handler = new RouteHandler(this);
 							handler.open();
@@ -269,19 +274,24 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 		
 	}
 	
-	private void showMessage(final String title, String message){
+	private void showMessage(final String title, final String message){
 		
 		AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.setTitle(title);
 		dialog.setMessage(message);
 		dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				if(!title.equalsIgnoreCase("error")){
+				if (message.contains("added") && fromTrips == true) {
+
+					setResult(Activity.RESULT_OK, new Intent().putExtra("name", getName));
+					finish();
+
+				} else if (!title.equalsIgnoreCase("error")) {
 					Intent intent = new Intent(getApplication(), RoutesView.class);
-					
+
 					startActivity(intent);
 					finish();
 				}
