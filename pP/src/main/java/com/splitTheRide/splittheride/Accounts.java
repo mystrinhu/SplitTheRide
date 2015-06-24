@@ -40,9 +40,9 @@ public class Accounts extends ActionBarActivity implements OnItemClickListener {
 		personList = new ArrayList<Person>();		
 		
 	    while (!c.isAfterLast()) {
-	    	
-	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2));
-	    	personList.add(person);
+
+			Person person = new Person(c.getInt(0), c.getString(1));
+			personList.add(person);
 	    	
 	    	c.moveToNext();
 	    }

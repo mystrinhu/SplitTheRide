@@ -36,4 +36,9 @@ public class Vehicle {
 		
 		return this.person_id;
 	}
+
+	public String toString() {
+
+		return this.name;
+	}
 }

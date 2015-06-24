@@ -90,17 +90,15 @@ public class VehiclesView extends ActionBarActivity{
 		PersonHandler handler = new PersonHandler(this);
 		
 		handler.open();
-		
-		Cursor c = handler.getShortNamefromID(vehicle.getPersonID());
-		
-		c.moveToFirst();
-		String short_name = c.getString(0);
+
+		String name = handler.getNamefromID(vehicle.getPersonID());
+
 		handler.close();
 
 		editVehicle.putExtra("id", vehicle.getId());
 		editVehicle.putExtra("name", vehicle.getName());
 		editVehicle.putExtra("consumption", vehicle.getConsumption());
-		editVehicle.putExtra("person_sname", short_name);
+		editVehicle.putExtra("person_name", name);
 		
 		startActivity(editVehicle);
 		finish();

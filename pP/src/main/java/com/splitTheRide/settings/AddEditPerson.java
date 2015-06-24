@@ -26,8 +26,8 @@ import com.splitTheRide.splittheride.R;
 public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 
 	private Button ok, cancel;
-	private EditText name, short_name;
-    private Spinner usual_route;
+	private EditText name;
+	private Spinner usual_route;
 	private PersonHandler handler;
 	private int person_id;
 	private Intent intent, editPerson;
@@ -43,7 +43,6 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		cancel = (Button) findViewById(R.id.cancel);
 		
 		name = (EditText) findViewById(R.id.name);
-		short_name = (EditText) findViewById(R.id.short_name);
 		usual_route = (Spinner) findViewById(R.id.spinner_usual_route);
 
 		ok.setOnClickListener(this);
@@ -57,14 +56,13 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
         routeAdapter = new ArrayAdapter<Route>(this, android.R.layout.simple_list_item_1, routeList);
         usual_route.setAdapter(routeAdapter);
 
-		
-		if(editPerson.getStringExtra("name") != null || editPerson.getStringExtra("short_name") != null){
+
+		if (editPerson.getStringExtra("name") != null) {
 			
 			ab.setTitle(R.string.edit_person);
 			ok.setText(R.string.edit);
 			
 			name.setText(editPerson.getStringExtra("name"));
-			short_name.setText(editPerson.getStringExtra("short_name"));
 
             RouteHandler routeHandler = new RouteHandler(this);
 
@@ -92,47 +90,42 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 		
 		switch(v.getId()){
 			case R.id.ok:	String getName = name.getText().toString();
-							String getSName = short_name.getText().toString();
                             Route selected_route = (Route) usual_route.getSelectedItem();
 							
 							handler = new PersonHandler(this);
 							handler.open();
-							
-							getSName = getSName.toUpperCase(Locale.US);
-							
+
 							if((ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add)) ||
 								(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.edit)) &&
-								 !editPerson.getStringExtra("short_name").equalsIgnoreCase(getSName)))
-								&& handler.shortNameExists(getSName)){
+										!editPerson.getStringExtra("name").equalsIgnoreCase(getName)))
+									&& handler.nameExists(getName)) {
 								showMessage(getResources().getString(R.string.error), getResources().getString(R.string.initials_in_use));
 							}
 							else{
-								if(getName.length() == 0 || getSName.length() == 0){
+								if (getName.length() == 0) {
 									showMessage(getResources().getString(R.string.error), getResources().getString(R.string.all_fields_mandatory));
 								}else{
 								
 									if(ok.getText().toString().equalsIgnoreCase(getResources().getString(R.string.add))){
 										
 										Cursor persons = handler.returnAllPersonsData();
-										
-										handler.insertPerson(getName, getSName, selected_route.getID());
-										
-										Cursor id = handler.getIDfromShortName(getSName);
+
+										handler.insertPerson(getName, selected_route.getID());
+
+										Cursor id = handler.getIDfromName(getName);
 										
 										addAccounts(persons, id);
 										
 										showMessage(getResources().getString(R.string.person), getResources().getString(R.string.person_added));
 									
 										name.setText("");
-										short_name.setText("");
 									
 									}else{
-									
-										if(handler.editPerson(person_id, getName, getSName, selected_route.getID())){
+
+										if (handler.editPerson(person_id, getName, selected_route.getID())) {
 											showMessage(getResources().getString(R.string.person), getName + " "+ getResources().getString(R.string.edit_success));
 										
 											name.setText("");
-											short_name.setText("");
 										}else 
 											showMessage(getResources().getString(R.string.error), getResources().getString(R.string.edit_error) + " "+ getName);
 									}
@@ -144,7 +137,6 @@ public class AddEditPerson extends ActionBarActivity implements OnClickListener{
 							break;
 							
 			case R.id.cancel:	name.setText("");
-								short_name.setText("");
 				
 								intent = new Intent(this, PersonsView.class);
 			

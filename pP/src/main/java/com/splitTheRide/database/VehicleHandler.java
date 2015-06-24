@@ -41,6 +41,14 @@ public class VehicleHandler {
 		return db.insertOrThrow(DataBaseHelper.VEHICLE_TABLE_NAME, null, content);
 		
 	}
+
+	public Cursor getVehiclesDrivenBy(int id) {
+		return db.query(DataBaseHelper.VEHICLE_TABLE_NAME,
+				new String[]{DataBaseHelper.VEHICLE_ID, DataBaseHelper.VEHICLE_NAME, DataBaseHelper.VEHICLE_CONSUMPTION, DataBaseHelper.VEHICLE_PERSON_ID},
+				DataBaseHelper.VEHICLE_PERSON_ID + " =?",
+				new String[]{"" + id},
+				null, null, null);
+	}
 	
 	public boolean editVehicle(int id, String name, double consump, int person_id){
 		

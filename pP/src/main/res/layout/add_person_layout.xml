@@ -32,25 +32,6 @@
 	        		android:ems="10"
 	        		android:hint="Ex.: joao" />
     	</TableRow>
-    	
-        <TableRow android:layout_height="wrap_content"
-        		android:layout_width="wrap_content"
-        		android:paddingTop="10dp">
-	    	
-            <TextView android:id="@+id/textView2"
-        			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"
-        			android:layout_gravity="center_vertical"
-        			android:text="@string/initials"
-        			android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    		<EditText android:id="@+id/short_name"
-        			android:layout_width="wrap_content"
-        			android:layout_height="wrap_content"
-        			android:ems="10"
-        			android:hint="Ex.: JMF" />
-	    	
-        </TableRow>
 
         <TableRow android:layout_height="wrap_content"
             android:layout_width="wrap_content"

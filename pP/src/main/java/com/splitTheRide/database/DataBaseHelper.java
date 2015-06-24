@@ -23,14 +23,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	// TABLE PERSON
 	public static final String PERSON_ID = "_id";
 	public static final String PERSON_NAME = "name";
-	public static final String PERSON_SNAME = "short_name";
-    public static final String PERSON_USUAL_ROUTE = "usual_route";
+	public static final String PERSON_USUAL_ROUTE = "usual_route";
 	public static final String PERSON_TABLE_NAME = "Persons";
 	
 	public static final String CREATE_TABLE_PERSON = "create table "+ PERSON_TABLE_NAME +
 													" ("+PERSON_ID+" integer primary key autoincrement, "+
 													PERSON_NAME+" text not null, "+
-													PERSON_SNAME+" text not null," +
                                                     PERSON_USUAL_ROUTE+" int," +
                                                     "FOREIGN KEY ("+PERSON_USUAL_ROUTE +") REFERENCES "+ ROUTE_TABLE_NAME +" ("+ROUTE_ID+") );";
 	

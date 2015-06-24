@@ -76,8 +76,8 @@ public class AccountHandler {
 	}*/
 	
 	public Cursor selectMovements(){
-		
-		return db.rawQuery("SELECT DISTINCT p."+DataBaseHelper.PERSON_ID+", p."+DataBaseHelper.PERSON_NAME+", p."+DataBaseHelper.PERSON_SNAME+
+
+		return db.rawQuery("SELECT DISTINCT p." + DataBaseHelper.PERSON_ID + ", p." + DataBaseHelper.PERSON_NAME +
 							" FROM "+DataBaseHelper.PERSON_TABLE_NAME+" p, "+DataBaseHelper.ACCOUNT_TABLE_NAME+" ac "+
 							"WHERE p."+DataBaseHelper.PERSON_ID+" = "+DataBaseHelper.ACCOUNT_OWNER_ID, null);
 	}

@@ -47,9 +47,9 @@ public class PersonsView extends ActionBarActivity{
 		List<Person> personList = new ArrayList<Person>();		
 		
 	    while (!c.isAfterLast()) {
-	    	
-	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3));
-	    	personList.add(person);
+
+			Person person = new Person(c.getInt(0), c.getString(1), c.getInt(2));
+			personList.add(person);
 	    	c.moveToNext();
 	    }
 		
@@ -91,7 +91,6 @@ public class PersonsView extends ActionBarActivity{
 
 		editPerson.putExtra("id", p.getId());
 		editPerson.putExtra("name", p.getName());
-		editPerson.putExtra("short_name", p.getShort());
         editPerson.putExtra("usual_route", p.getUsual_route());
 		
 		startActivity(editPerson);

@@ -30,23 +30,21 @@ public class PersonHandler {
 		
 		dbhelper.close();
 	}
-	
-	public long insertPerson(String name, String short_name, int route){
+
+	public long insertPerson(String name, int route) {
 		
 		ContentValues content = new ContentValues();
 		content.put(DataBaseHelper.PERSON_NAME,name);
-		content.put(DataBaseHelper.PERSON_SNAME, short_name);
         content.put(DataBaseHelper.PERSON_USUAL_ROUTE, route);
 		
 		return db.insertOrThrow(DataBaseHelper.PERSON_TABLE_NAME, null, content);
 		
 	}
-	
-	public boolean editPerson(int id, String name, String short_name, int route){
+
+	public boolean editPerson(int id, String name, int route) {
 		
 		ContentValues content = new ContentValues();
 		content.put(DataBaseHelper.PERSON_NAME, name);
-		content.put(DataBaseHelper.PERSON_SNAME, short_name);
         content.put(DataBaseHelper.PERSON_USUAL_ROUTE, route);
 		
 		
@@ -58,12 +56,12 @@ public class PersonHandler {
 		return db.delete(DataBaseHelper.PERSON_TABLE_NAME, DataBaseHelper.PERSON_ID + " =?", new String[]{"" + id}) > 0;
 		
 	}
-	
-	public boolean shortNameExists(String short_name){
+
+	public boolean nameExists(String short_name) {
 		
-		Cursor cursor = db.query(DataBaseHelper.PERSON_TABLE_NAME, 
-								new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME, DataBaseHelper.PERSON_SNAME}, 
-								DataBaseHelper.PERSON_SNAME + " =?", 
+		Cursor cursor = db.query(DataBaseHelper.PERSON_TABLE_NAME,
+				new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME},
+				DataBaseHelper.PERSON_NAME + " =?",
 								new String[]{short_name}, 
 								null, null, null);
 		
@@ -72,22 +70,12 @@ public class PersonHandler {
 	}
 	
 	public Cursor getAllDrivers(){
-		
-		return db.rawQuery("SELECT p."+DataBaseHelper.PERSON_ID+", p."+DataBaseHelper.PERSON_NAME+", p."+DataBaseHelper.PERSON_SNAME+", p."+DataBaseHelper.PERSON_USUAL_ROUTE+
+
+		return db.rawQuery("SELECT p." + DataBaseHelper.PERSON_ID + ", p." + DataBaseHelper.PERSON_NAME + ", p." + DataBaseHelper.PERSON_USUAL_ROUTE +
 						   " FROM "+DataBaseHelper.PERSON_TABLE_NAME+" p, "+DataBaseHelper.VEHICLE_TABLE_NAME+" v "+
 						   "WHERE p."+DataBaseHelper.PERSON_ID+" = v."+DataBaseHelper.VEHICLE_PERSON_ID, null);
 	}
 	
-	public Cursor getShortNamefromID(int id){
-		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME,
-                new String[]{DataBaseHelper.PERSON_SNAME},
-                DataBaseHelper.PERSON_ID + " =?",
-                new String[]{"" + id},
-                null, null, null);
-		
-	}
-
     public String getNamefromID(int id){
 
         Cursor c = db.query(DataBaseHelper.PERSON_TABLE_NAME,
@@ -102,15 +90,6 @@ public class PersonHandler {
 
         return name;
     }
-	
-	public Cursor getIDfromShortName(String short_name){
-		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME, 
-						new String[]{DataBaseHelper.PERSON_ID}, 
-						DataBaseHelper.PERSON_SNAME + " =?", 
-						new String[]{short_name}, 
-						null, null, null);
-	}
 
 	public Cursor getIDfromName(String name){
 
@@ -120,17 +99,17 @@ public class PersonHandler {
                 new String[]{name},
                 null, null, null);
     }
-	
-	public Cursor returnAllPersonsShortName(){
+
+	public Cursor returnAllPersonsName() {
 		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME, 
-						new String[] {DataBaseHelper.PERSON_SNAME}, 
+		return db.query(DataBaseHelper.PERSON_TABLE_NAME,
+				new String[]{DataBaseHelper.PERSON_NAME},
 						null, null, null, null, null);
 	}
 	
 	public Cursor returnAllPersonsData(){
-		
-		return db.query(DataBaseHelper.PERSON_TABLE_NAME, new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME, DataBaseHelper.PERSON_SNAME, DataBaseHelper.PERSON_USUAL_ROUTE}, null, null, null, null, null);
+
+		return db.query(DataBaseHelper.PERSON_TABLE_NAME, new String[]{DataBaseHelper.PERSON_ID, DataBaseHelper.PERSON_NAME, DataBaseHelper.PERSON_USUAL_ROUTE}, null, null, null, null, null);
 	}
 	
 	

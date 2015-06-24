@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.splitTheRide.custom.Utils;
 import com.splitTheRide.database.ComposedRouteHandler;
 import com.splitTheRide.database.PersonHandler;
 import com.splitTheRide.database.RouteHandler;
@@ -31,33 +32,40 @@ import com.splitTheRide.database.SegmentHandler;
 import com.splitTheRide.database.TripHandler;
 import com.splitTheRide.entities.Person;
 import com.splitTheRide.entities.Route;
+import com.splitTheRide.entities.Vehicle;
 import com.splitTheRide.settings.AddEditRoute;
 import com.splitTheRide.splittheride.R;
 
 public class Trips extends ActionBarActivity implements OnClickListener{
 
 	private TextView date;
-	private Spinner driverSpinner;
+    private Spinner driverSpinner, vehicleSpinner;
     private ListView passengerListView;
 	private Button save, cancel;
     private CheckBox round_trip;
     private ArrayList<HashMap<String,String>> passengersList;
 	private ArrayList<Person> personList = new ArrayList<Person>(), driversList;
+    private ArrayList<Vehicle> vehiclesList;
     private Cursor personCursor;
     private CharSequence[] passengers;
 	private ArrayAdapter<Person> driverAdapter;
+    private ArrayAdapter<Vehicle> vehicleAdapter;
     private SimpleAdapter simpleAdapter;
     private ArrayList<Integer> selectedPassengers;
     private ArrayList<CharSequence> mSelectedItems = new ArrayList<CharSequence>();
     private String editingPassenger = "";
-	
-	protected void onCreate(Bundle savedInstanceState) {
+    private Utils utils;
+
+    protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trips_layout);
-		
-		date = (TextView) findViewById(R.id.date);
+
+        utils = new Utils();
+
+        date = (TextView) findViewById(R.id.date);
 		driverSpinner = (Spinner) findViewById(R.id.spinner2);
+        vehicleSpinner = (Spinner) findViewById(R.id.spinner3);
         round_trip = (CheckBox) findViewById(R.id.ida_volta);
 		save = (Button) findViewById(R.id.saveTrip);
 		cancel = (Button) findViewById(R.id.cancelTrip);
@@ -75,14 +83,16 @@ public class Trips extends ActionBarActivity implements OnClickListener{
         personCursor.moveToFirst();
 
         while(!personCursor.isAfterLast()){
-            Person person = new Person(personCursor.getInt(0), personCursor.getString(1), personCursor.getString(2), personCursor.getInt(3));
+            Person person = new Person(personCursor.getInt(0), personCursor.getString(1), personCursor.getInt(2));
             personList.add(person);
 
             personCursor.moveToNext();
         }
         personHandler.close();
 
-				
+
+        // Setting up drivers spinner
+
 		driversList = getDrivers();
 		
 	    driverAdapter = new ArrayAdapter<Person>(this, R.layout.custom_spinner_layout, driversList);
@@ -92,6 +102,10 @@ public class Trips extends ActionBarActivity implements OnClickListener{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 removefromPassengers(parent.getItemAtPosition(position).toString());
+
+                vehiclesList = utils.getCarsDrivenBy(driversList.get(position).getId(), getApplicationContext());
+                vehicleAdapter = new ArrayAdapter<Vehicle>(getApplicationContext(), R.layout.custom_spinner_layout, vehiclesList);
+                vehicleSpinner.setAdapter(vehicleAdapter);
             }
 
             @Override
@@ -99,6 +113,13 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
             }
         });
+
+        // Setting up vehicle spinner
+
+        vehiclesList = utils.getCarsDrivenBy(driversList.get(0).getId(), this);
+        vehicleAdapter = new ArrayAdapter<Vehicle>(this, R.layout.custom_spinner_layout, vehiclesList);
+        vehicleSpinner.setAdapter(vehicleAdapter);
+
 
         passengersList = new ArrayList<HashMap<String,String>>();
 
@@ -112,12 +133,13 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 			case R.id.saveTrip:     boolean roundtrip = round_trip.isChecked();
-                                    String driver = driverSpinner.getSelectedItem().toString();
+                Person driver = (Person) driverSpinner.getSelectedItem();
                                     String day = date.getText().toString();
+                Vehicle vehicle = (Vehicle) vehicleSpinner.getSelectedItem();
 
                                     if(passengersList.isEmpty())
                                         showDialog("Error", "You must add at least one passenger.");
-                                    else saveTrip(roundtrip, driver, day);
+                                    else saveTrip(roundtrip, driver, day, vehicle);
 
                                     break;
 			
@@ -148,42 +170,24 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 
     // Guarda a informação das viagens
 
-    private void saveTrip(boolean roundtrip, String driver, String date){
+    private void saveTrip(boolean roundtrip, Person driver, String date, Vehicle vehicle) {
 
-        Toast.makeText(this, roundtrip+" "+driver+" "+date, Toast.LENGTH_LONG).show();
-
-        int driverID;
-
-        // Driver
-        PersonHandler personHandler = new PersonHandler(this);
-
-        personHandler.open();
-        Cursor driver_cursor = personHandler.getIDfromName(driver);
-
-        driver_cursor.moveToFirst();
-
-        while(!driver_cursor.isAfterLast()){
-
-            driverID = driver_cursor.getInt(0);
-            driver_cursor.moveToNext();
-        }
-        personHandler.close();
-
+        Toast.makeText(this, roundtrip + " " + driver.getId() + " " + date + " " + vehicle.getId(), Toast.LENGTH_LONG).show();
 
         TripHandler tripHandler = new TripHandler(this);
 
         tripHandler.open();
 
-        tripHandler.insertTrip(date, driverID, )
+        //tripHandler.insertTrip(date, driver.getId(), vehicle.getId());
 
         tripHandler.close();
 
 
         for(HashMap<String, String> passenger: passengersList){
 
-            Log.d("passenger", passenger.values().toString());
+            Object[] pass = passenger.values().toArray();
+            Log.d("passenger", utils.getPersonIDfromName((String) pass[0], this) + " - " + pass[0] + " - " + utils.getRouteIDFromName((String) pass[1], this) + " - " + pass[1]);
         }
-
 
     }
 
@@ -494,9 +498,9 @@ public class Trips extends ActionBarActivity implements OnClickListener{
 		c.moveToFirst();
 		
 	    while (!c.isAfterLast()) {
-	    	
-	    	Person person = new Person(c.getInt(0), c.getString(1), c.getString(2), c.getInt(3));
-	    	drivers.add(person);
+
+            Person person = new Person(c.getInt(0), c.getString(1), c.getInt(2));
+            drivers.add(person);
 	    	
 	    	c.moveToNext();
 	    }

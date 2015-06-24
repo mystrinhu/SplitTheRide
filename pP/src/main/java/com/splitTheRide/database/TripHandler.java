@@ -30,8 +30,8 @@ public class TripHandler {
 		
 		dbhelper.close();
 	}
-	
-	public int tripsInDate(String date){
+
+	public Cursor tripsInDate(String date) {
 		
 		Cursor cursor = db.query(DataBaseHelper.TRIP_TABLE_NAME, 
 						new String[]{DataBaseHelper.TRIP_ID, DataBaseHelper.TRIP_DRIVER_ID, DataBaseHelper.TRIP_VEHICLE_ID},
@@ -39,7 +39,7 @@ public class TripHandler {
 						new String[]{date}, 
 						null, null, null);
 
-		return cursor.getCount();
+		return cursor;
 	}
 
 	public Cursor getLastTripID(){
@@ -57,13 +57,10 @@ public class TripHandler {
 		return db.insertOrThrow(DataBaseHelper.TRIP_TABLE_NAME, null, content);
 		
 	}
-	
-	public Cursor returnData(){
+
+	public Cursor returnTrips() {
 		
 		return db.query(DataBaseHelper.TRIP_TABLE_NAME, new String[]{DataBaseHelper.TRIP_DATE, DataBaseHelper.TRIP_DRIVER_ID, DataBaseHelper.TRIP_VEHICLE_ID}, null, null, null, null, null);
 	}
-	
-	
-		
-	
+
 }

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.splitTheRide.custom.Utils;
 import com.splitTheRide.database.ComposedRouteHandler;
 import com.splitTheRide.database.RouteHandler;
 import com.splitTheRide.database.SegmentHandler;
@@ -128,21 +129,9 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 
 							
 							handler.close();
-							
-							handler.open();
-							
-							Cursor c = handler.getRouteID(getName);
-							
-							c.moveToFirst();
-							
-							
-							while (!c.isAfterLast()) {
-						    	
-						    	route_id = c.getInt(0);
-						    	c.moveToNext();
-						    }
-							
-							handler.close();
+
+				Utils utils = new Utils();
+				route_id = utils.getRouteIDFromName(getName, this);
 							
 							if(route_id != -1){
 								
@@ -152,8 +141,8 @@ public class AddEditRoute extends ActionBarActivity implements OnClickListener{
 								ArrayList<Integer> idsToAdd = new ArrayList<Integer>();
 															
 								for(String s : segments.getText().toString().split("[\\r\\n]+")){
-									
-									c = segmentHandler.getSegmentID(s);
+
+									Cursor c = segmentHandler.getSegmentID(s);
 									
 									c.moveToFirst();
 									

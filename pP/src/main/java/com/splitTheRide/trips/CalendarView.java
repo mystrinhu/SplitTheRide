@@ -8,12 +8,15 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.splitTheRide.database.TripHandler;
 import com.splitTheRide.splittheride.R;
@@ -69,26 +72,38 @@ public class CalendarView extends ActionBarActivity {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
-				
-				Intent trips = new Intent(CalendarView.this, Trips.class);
+
+				final Intent trips = new Intent(CalendarView.this, Trips.class);
 				
 				trips.putExtra("date", formatter.format(date));
 				
 				handler = new TripHandler(getApplicationContext());
 				handler.open();
-				
-				
-				if(handler.tripsInDate(formatter.format(date))>0){
-					
-					CharSequence colors[] = new CharSequence[] {"Edit existing trip", "Add new trip"};
+
+				Cursor tripsInDate = handler.tripsInDate(formatter.format(date));
+
+				if (tripsInDate.getCount() > 0) {
+
+					final CharSequence colors[] = new CharSequence[]{"Edit existing trip", "Add new trip"};
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(CalendarView.this);
-					builder.setTitle("Pick a color");
+					builder.setTitle("Select an option");
 					builder.setItems(colors, new DialogInterface.OnClickListener() {
 					    @Override
 					    public void onClick(DialogInterface dialog, int which) {
 					        // the user clicked on colors[which]
-					    }
+							switch (which) {
+
+								case 0:
+									Toast.makeText(getApplicationContext(), "Não implementado", Toast.LENGTH_LONG).show();
+									break;
+
+								case 1:
+									startActivity(trips);
+							}
+
+							Log.d("choice", which + " " + colors[which]);
+						}
 					});
 					builder.show();
 					

@@ -53,7 +53,7 @@ public class AddEditVehicle extends ActionBarActivity implements OnClickListener
 		p_handler = new PersonHandler(this);
 		
 		p_handler.open();
-		Cursor person_cursor = p_handler.returnAllPersonsShortName();
+		Cursor person_cursor = p_handler.returnAllPersonsName();
 		
 		person_cursor.moveToFirst();
 		
@@ -82,9 +82,9 @@ public class AddEditVehicle extends ActionBarActivity implements OnClickListener
 			
 			name.setText(editVehicle.getStringExtra("name"));
 			consumption.setText(""+editVehicle.getDoubleExtra("consumption", 0));
-			
-			
-			person.setSelection(personList.indexOf(editVehicle.getStringExtra("person_sname")));
+
+
+			person.setSelection(personList.indexOf(editVehicle.getStringExtra("person_name")));
 			
 			vehicle_id = editVehicle.getIntExtra("id", 0);
 		}else{
@@ -117,8 +117,8 @@ public class AddEditVehicle extends ActionBarActivity implements OnClickListener
 							}else{
 								
 								p_handler.open();
-								
-								Cursor cursor = p_handler.getIDfromShortName(getOwner);
+
+								Cursor cursor = p_handler.getIDfromName(getOwner);
 								cursor.moveToFirst();
 								
 								int person_id = cursor.getInt(0);
