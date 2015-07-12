@@ -36,7 +36,7 @@ public class RouteHandler {
 	public long insertRoute(String name){
 		
 		ContentValues content = new ContentValues();
-		content.put(DataBaseHelper.ROUTE_NAME,name);
+		content.put(DataBaseHelper.ROUTE_NAME, name);
 				
 		return db.insertOrThrow(DataBaseHelper.ROUTE_TABLE_NAME, null, content);
 		
@@ -83,8 +83,8 @@ public class RouteHandler {
         return r;
 
     }
-	
-	public Cursor getRouteID (String name){
+
+	public Cursor getRouteID(String name) {
 		
 		return db.query(DataBaseHelper.ROUTE_TABLE_NAME, 
 						new String[]{DataBaseHelper.ROUTE_ID}, 
@@ -92,7 +92,16 @@ public class RouteHandler {
 						new String[]{name}, 
 						null, null, null);
 	}
-	
+
+	public Cursor getRouteName(int route_id) {
+
+		return db.query(DataBaseHelper.ROUTE_TABLE_NAME,
+				new String[]{DataBaseHelper.ROUTE_NAME},
+				DataBaseHelper.ROUTE_ID + " =?",
+				new String[]{route_id + ""},
+				null, null, null);
+	}
+
 	public boolean removeRoute(int id){
 		
 		return db.delete(DataBaseHelper.ROUTE_TABLE_NAME, DataBaseHelper.ROUTE_ID + " =?", new String[]{""+id}) > 0;

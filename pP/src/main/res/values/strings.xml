@@ -64,6 +64,10 @@
     <string name="segment_edited">Segment edited successfully.</string>
     <string name="segment_error">It was not possible to edit this segment.</string>
     <string name="app_name">Split the ride</string>
+    <string name="title_activity_passengers_by_trips">Passengers</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_trips_in_date">Trips at this date</string>
 
 
 </resources>

@@ -21,7 +21,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="com.splitTheRide.splittheride.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.splitTheRide.splittheride.Accounts"
+            android:name=".Accounts"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,9 +44,9 @@
                 android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.splitTheRide.splittheride.Transactions"
+            android:name=".Transactions"
             android:label="@string/title_activity_transactions"
-            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,9 +58,9 @@
                 android:value="com.splitTheRide.splittheride.MainActivity" />
         </activity>
         <activity
-            android:name="com.splitTheRide.splittheride.Settings"
+            android:name=".Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,7 +74,7 @@
         <activity
             android:name="com.splitTheRide.trips.CalendarView"
             android:label="@string/title_activity_calendar"
-            android:parentActivityName="com.splitTheRide.splittheride.MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.MainActivity" />
@@ -82,7 +82,7 @@
         <activity
             android:name="com.splitTheRide.settings.PersonsView"
             android:label="@string/title_activity_persons"
-            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
+            android:parentActivityName=".Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Settings" />
@@ -98,7 +98,7 @@
         <activity
             android:name="com.splitTheRide.settings.VehiclesView"
             android:label="@string/title_activity_vehicles"
-            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
+            android:parentActivityName=".Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Settings" />
@@ -114,7 +114,7 @@
         <activity
             android:name="com.splitTheRide.settings.RoutesView"
             android:label="@string/title_activity_routes"
-            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
+            android:parentActivityName=".Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Settings" />
@@ -130,7 +130,7 @@
         <activity
             android:name="com.splitTheRide.settings.SegmentsView"
             android:label="@string/title_activity_segments"
-            android:parentActivityName="com.splitTheRide.splittheride.Settings" >
+            android:parentActivityName=".Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Settings" />
@@ -152,9 +152,9 @@
                 android:value="com.splitTheRide.trips.CalendarView" />
         </activity>
         <activity
-            android:name="com.splitTheRide.splittheride.AccountValues"
+            android:name=".AccountValues"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName="com.splitTheRide.splittheride.Accounts" >
+            android:parentActivityName=".Accounts">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Accounts" />
@@ -162,12 +162,27 @@
         <activity
             android:name="com.splitTheRide.settings.AddTransaction"
             android:label="@string/title_activity_add_transaction"
-            android:parentActivityName="com.splitTheRide.splittheride.Transactions" >
+            android:parentActivityName=".Transactions">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitTheRide.splittheride.Transactions" />
         </activity>
-
+        <activity
+            android:name="com.splitTheRide.trips.PassengersByTrips"
+            android:label="@string/title_activity_passengers_by_trips"
+            android:parentActivityName="com.splitTheRide.trips.Trips">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.splitTheRide.trips.Trips" />
+        </activity>
+        <activity
+            android:name="com.splitTheRide.trips.TripsInDate"
+            android:label="@string/title_activity_trips_in_date"
+            android:parentActivityName="com.splitTheRide.trips.CalendarView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.splitTheRide.trips.CalendarView" />
+        </activity>
     </application>
 
 </manifest>

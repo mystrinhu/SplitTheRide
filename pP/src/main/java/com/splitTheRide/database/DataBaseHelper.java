@@ -55,6 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public static final String TRIP_DATE = "trip_date";
 	public static final String TRIP_DRIVER_ID = "driver_id";
 	public static final String TRIP_VEHICLE_ID = "vehicle_id";
+	public static final String TRIP_ROUND_TRIP = "round_trip";
 	public static final String TRIP_TABLE_NAME = "Trips";
 	
 	public static final String CREATE_TABLE_TRIP = "create table "+TRIP_TABLE_NAME+
@@ -62,6 +63,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 												   TRIP_DATE + " date not null, "+
 												   TRIP_DRIVER_ID + " integer, "+
 												   TRIP_VEHICLE_ID + " integer, "+
+			TRIP_ROUND_TRIP + " integer, " +
 												   "FOREIGN KEY(" + TRIP_DRIVER_ID + ") REFERENCES "+ PERSON_TABLE_NAME+ " ("+PERSON_ID+"), "+
 												   "FOREIGN KEY(" + TRIP_VEHICLE_ID + ") REFERENCES "+ VEHICLE_TABLE_NAME+ " ("+VEHICLE_ID+") ); ";
 	

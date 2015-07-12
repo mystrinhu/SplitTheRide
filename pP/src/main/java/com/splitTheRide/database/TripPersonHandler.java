@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by Joao on 24-06-2015.
- */
+
 public class TripPersonHandler {
 
     DataBaseHelper dbhelper;
@@ -44,8 +42,22 @@ public class TripPersonHandler {
 
     }
 
-    public Cursor returnTripPersonData() {
+    public Cursor passengersInTrip(int trip_id) {
 
-        return db.query(DataBaseHelper.TP_TABLE_NAME, new String[]{DataBaseHelper.TP_TRIP_ID, DataBaseHelper.TP_PASSENGER_ID, DataBaseHelper.TP_ROUTE_ID}, null, null, null, null, null);
+        return db.query(DataBaseHelper.TP_TABLE_NAME,
+                new String[]{DataBaseHelper.TP_ROUTE_ID, DataBaseHelper.TP_PASSENGER_ID},
+                DataBaseHelper.TP_TRIP_ID + " =?",
+                new String[]{"" + trip_id},
+                null, null, null);
+
     }
+
+
+    public void removeTrip(int trip_id) {
+
+        db.delete(DataBaseHelper.TP_TABLE_NAME,
+                DataBaseHelper.TP_TRIP_ID + "=?",
+                new String[]{"" + trip_id});
+    }
+
 }

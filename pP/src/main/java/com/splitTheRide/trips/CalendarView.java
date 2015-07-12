@@ -71,7 +71,7 @@ public class CalendarView extends ActionBarActivity {
 		final CaldroidListener listener = new CaldroidListener() {
 
 			@Override
-			public void onSelectDate(Date date, View view) {
+			public void onSelectDate(final Date date, View view) {
 
 				final Intent trips = new Intent(CalendarView.this, Trips.class);
 				
@@ -80,40 +80,45 @@ public class CalendarView extends ActionBarActivity {
 				handler = new TripHandler(getApplicationContext());
 				handler.open();
 
-				Cursor tripsInDate = handler.tripsInDate(formatter.format(date));
+				final Cursor tripsInDate = handler.tripsInDate(formatter.format(date));
+
 
 				if (tripsInDate.getCount() > 0) {
 
-					final CharSequence colors[] = new CharSequence[]{"Edit existing trip", "Add new trip"};
+					final CharSequence options[] = new CharSequence[]{"Edit existing trip", "Add new trip"};
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(CalendarView.this);
 					builder.setTitle("Select an option");
-					builder.setItems(colors, new DialogInterface.OnClickListener() {
-					    @Override
-					    public void onClick(DialogInterface dialog, int which) {
+					builder.setItems(options, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
 					        // the user clicked on colors[which]
 							switch (which) {
 
 								case 0:
-									Toast.makeText(getApplicationContext(), "Não implementado", Toast.LENGTH_LONG).show();
+									Intent tripsDate = new Intent(CalendarView.this, TripsInDate.class);
+
+									tripsDate.putExtra("date", formatter.format(date));
+									startActivity(tripsDate);
+
 									break;
 
 								case 1:
+									trips.putExtra("operation", "Save");
 									startActivity(trips);
+									break;
 							}
 
-							Log.d("choice", which + " " + colors[which]);
 						}
 					});
 					builder.show();
 					
 				}else{
+					trips.putExtra("operation", "Save");
 					startActivity(trips);
 				}
-					
-				
-				handler.close();
 
+				handler.close();
 			}
 
 			@Override
